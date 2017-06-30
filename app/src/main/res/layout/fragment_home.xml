@@ -8,7 +8,7 @@
     android:paddingStart="@dimen/_10dp"
     android:paddingEnd="@dimen/_10dp"
     android:paddingRight="@dimen/_10dp"
-    android:paddingBottom="@dimen/_60dp"
+    android:paddingBottom="@dimen/_70dp"
     tools:context="com.upiki.bayartol.page.home.HomeFragment">
 
     <LinearLayout
