@@ -1,6 +1,9 @@
 package com.upiki.bayartol;
 
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.upiki.bayartol.page.history.HistoryFragment;
 import com.upiki.bayartol.page.home.HomeFragment;
@@ -29,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvTitle;
 
     private int selectedFragment;
+    private boolean isBackPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
 
         findIconView();
+
         selectedFragment = 0;
         HomeFragment homeFragment = new HomeFragment();
         setFragment(homeFragment);
@@ -97,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
         selectedFragment = index;
         switch (index) {
             case 0:
+                tvTitle.setText(getString(R.string.app_name));
                 ivHomeIcon.setImageResource(
                         R.drawable.ic_home_selected);
                 tvHomeIcon.setTextColor(
@@ -105,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
                                 R.color.colorPrimary));
                 break;
             case 1:
+                tvTitle.setText(getString(R.string.history));
                 ivHistoryIcon.setImageResource(
                         R.drawable.ic_history_selected);
                 tvHistoryIcon.setTextColor(
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
                                 R.color.colorPrimary));
                 break;
             case 2:
+                tvTitle.setText(getString(R.string.organization));
                 ivOrganizationIcon.setImageResource(
                         R.drawable.ic_organization_selected);
                 tvOrganizationIcon.setTextColor(
@@ -121,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                                 R.color.colorPrimary));
                 break;
             case 3:
+                tvTitle.setText(getString(R.string.profile));
                 ivProfileIcon.setImageResource(
                         R.drawable.ic_profile_selected);
                 tvProfileIcon.setTextColor(
@@ -134,20 +144,23 @@ public class MainActivity extends AppCompatActivity {
     private void setFragment(Fragment fragment) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_content, fragment)
+                .replace(R.id.fl_content,
+                        fragment,
+                        String.valueOf(
+                                selectedFragment))
+                .addToBackStack(String.valueOf(
+                        selectedFragment))
                 .commit();
     }
 
     public void onNavHomeClicked(View v) {
         setSelectedItem(0);
-        tvTitle.setText(getString(R.string.app_name));
         HomeFragment homeFragment = new HomeFragment();
         setFragment(homeFragment);
     }
 
     public void onNavHistoryClicked(View v) {
         setSelectedItem(1);
-        tvTitle.setText(getString(R.string.history));
         HistoryFragment historyFragment =
                 new HistoryFragment();
         setFragment(historyFragment);
@@ -155,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNavOrganizationClicked(View v) {
         setSelectedItem(2);
-        tvTitle.setText(getString(R.string.organization));
         OrganizationFragment organizationFragment =
                 new OrganizationFragment();
         setFragment(organizationFragment);
@@ -163,7 +175,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNavProfileClicked(View v) {
         setSelectedItem(3);
-        tvTitle.setText(getString(R.string.profile));
         ProfileFragment profileFragment =
                 new ProfileFragment();
         setFragment(profileFragment);
@@ -171,13 +182,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (selectedFragment != 0) {
-            setSelectedItem(0);
-            tvTitle.setText(getString(R.string.app_name));
-            HomeFragment homeFragment = new HomeFragment();
-            setFragment(homeFragment);
-        } else {
+        int index = getSupportFragmentManager()
+                .getBackStackEntryCount() - 1;
+        if (index > 0) {
             super.onBackPressed();
+            index--;
+            FragmentManager.BackStackEntry backStackEntry =
+                    getSupportFragmentManager()
+                            .getBackStackEntryAt(index);
+            String tag = backStackEntry.getName();
+            setSelectedItem(Integer.parseInt(tag));
+            return;
         }
+
+        //if there is no fragment in back stack anymore
+        if (isBackPressed) {
+            finish();
+            return;
+        }
+        isBackPressed = true;
+        Toast.makeText(
+                getApplicationContext(),
+                R.string.quit_application_instruction,
+                Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isBackPressed = false;
+            }
+        }, 2000);
     }
 }

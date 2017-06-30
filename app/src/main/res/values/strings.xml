@@ -5,6 +5,7 @@
     <string name="history">Riwayat</string>
     <string name="organization">Organisasi</string>
     <string name="profile">Profil</string>
+    <string name="quit_application_instruction">Tekan sekali lagi untuk keluar aplikasi</string>
 
     <!--Home-->
     <string name="home_payment_method">Metode Pembayaran</string>
