@@ -2,6 +2,7 @@ package com.upiki.bayartol;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,12 +26,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvOrganizationIcon;
     private TextView tvProfileIcon;
 
+    private TextView tvTitle;
+
     private int selectedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
+        tvTitle = (TextView) findViewById(R.id.tv_title);
 
         findIconView();
         selectedFragment = 0;
@@ -132,12 +140,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNavHomeClicked(View v) {
         setSelectedItem(0);
+        tvTitle.setText(getString(R.string.app_name));
         HomeFragment homeFragment = new HomeFragment();
         setFragment(homeFragment);
     }
 
     public void onNavHistoryClicked(View v) {
         setSelectedItem(1);
+        tvTitle.setText(getString(R.string.history));
         HistoryFragment historyFragment =
                 new HistoryFragment();
         setFragment(historyFragment);
@@ -145,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNavOrganizationClicked(View v) {
         setSelectedItem(2);
+        tvTitle.setText(getString(R.string.organization));
         OrganizationFragment organizationFragment =
                 new OrganizationFragment();
         setFragment(organizationFragment);
@@ -152,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void onNavProfileClicked(View v) {
         setSelectedItem(3);
+        tvTitle.setText(getString(R.string.profile));
         ProfileFragment profileFragment =
                 new ProfileFragment();
         setFragment(profileFragment);
@@ -161,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (selectedFragment != 0) {
             setSelectedItem(0);
+            tvTitle.setText(getString(R.string.app_name));
             HomeFragment homeFragment = new HomeFragment();
             setFragment(homeFragment);
         } else {
