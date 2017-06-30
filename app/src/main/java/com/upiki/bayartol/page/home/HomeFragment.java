@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
 import com.upiki.bayartol.R;
+import com.upiki.bayartol.listener.SpinnerOnItemSelectedListener;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -26,6 +28,7 @@ public class HomeFragment extends Fragment
     private ZXingScannerView scannerView;
 
     private CheckBox cbBusinessTrip;
+    private Spinner spinnerPaymentMethod;
 
     private TextView tvUserName;
     private TextView tvPaymentMethod;
@@ -44,13 +47,24 @@ public class HomeFragment extends Fragment
                 .findViewById(R.id.barcode_scanner);
         cbBusinessTrip = (CheckBox) view
                 .findViewById(R.id.cb_mark_as_business);
+        spinnerPaymentMethod = (Spinner) view
+                .findViewById(R.id.spinner_payment_method);
         tvUserName = (TextView) view
                 .findViewById(R.id.tv_user_name);
         tvPaymentMethod = (TextView) view
                 .findViewById(R.id.tv_payment_method);
         tvCurrentBalance = (TextView) view
                 .findViewById(R.id.tv_current_balance);
+        addSpinnerOnItemSelectedListener();
         return view;
+    }
+
+    private void addSpinnerOnItemSelectedListener() {
+        spinnerPaymentMethod.setOnItemSelectedListener(
+                new SpinnerOnItemSelectedListener(
+                        tvPaymentMethod,
+                        tvCurrentBalance)
+        );
     }
 
     @Override
