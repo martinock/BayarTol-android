@@ -1,6 +1,5 @@
 package com.upiki.bayartol;
 
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +17,11 @@ import com.upiki.bayartol.page.home.HomeFragment;
 import com.upiki.bayartol.page.organization.OrganizationFragment;
 import com.upiki.bayartol.page.profile.ProfileFragment;
 
+/**
+ * The container activity of all fragments.
+ * @author Martino Christanto Khuangga <martino.aksel.11@gmail.com>
+ * @since 2017.06.30
+ */
 public class MainActivity extends AppCompatActivity {
 
     private ImageView ivHomeIcon;
@@ -153,33 +157,60 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    /**
+     * A method for handling click on home icon.
+     * @param v the button view
+     */
     public void onNavHomeClicked(View v) {
-        setSelectedItem(0);
-        HomeFragment homeFragment = new HomeFragment();
-        setFragment(homeFragment);
+        if (selectedFragment != 0) {
+            setSelectedItem(0);
+            HomeFragment homeFragment = new HomeFragment();
+            setFragment(homeFragment);
+        }
     }
 
+    /**
+     * A method for handling click on history icon.
+     * @param v the button view
+     */
     public void onNavHistoryClicked(View v) {
-        setSelectedItem(1);
-        HistoryFragment historyFragment =
-                new HistoryFragment();
-        setFragment(historyFragment);
+        if (selectedFragment != 1) {
+            setSelectedItem(1);
+            HistoryFragment historyFragment =
+                    new HistoryFragment();
+            setFragment(historyFragment);
+        }
     }
 
+    /**
+     * A method for handling click on organization icon.
+     * @param v the button view
+     */
     public void onNavOrganizationClicked(View v) {
-        setSelectedItem(2);
-        OrganizationFragment organizationFragment =
-                new OrganizationFragment();
-        setFragment(organizationFragment);
+        if (selectedFragment != 2) {
+            setSelectedItem(2);
+            OrganizationFragment organizationFragment =
+                    new OrganizationFragment();
+            setFragment(organizationFragment);
+        }
     }
 
+    /**
+     * A method for handling click on profile icon.
+     * @param v the button view
+     */
     public void onNavProfileClicked(View v) {
-        setSelectedItem(3);
-        ProfileFragment profileFragment =
-                new ProfileFragment();
-        setFragment(profileFragment);
+        if (selectedFragment != 3) {
+            setSelectedItem(3);
+            ProfileFragment profileFragment =
+                    new ProfileFragment();
+            setFragment(profileFragment);
+        }
     }
 
+    /**
+     * A method for handling back button press.
+     */
     @Override
     public void onBackPressed() {
         int index = getSupportFragmentManager()
@@ -205,6 +236,8 @@ public class MainActivity extends AppCompatActivity {
                 getApplicationContext(),
                 R.string.quit_application_instruction,
                 Toast.LENGTH_SHORT).show();
+
+        //If user not pressed back button for 2 seconds
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

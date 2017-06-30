@@ -5,23 +5,28 @@
     <string name="history">Riwayat</string>
     <string name="organization">Organisasi</string>
     <string name="profile">Profil</string>
-    <string name="quit_application_instruction">Tekan sekali lagi untuk keluar aplikasi</string>
+    <string name="quit_application_instruction">Tekan sekali lagi untuk keluar</string>
+    <string name="dummy_string">Upiki</string>
 
     <!--Home-->
     <string name="home_payment_method">Metode Pembayaran</string>
+    <string name="home_payment_method_prompt">Pilih metode pembayaran</string>
+    <string-array name="home_payment_methods">
+        <item>Pulsa</item>
+        <item>Top-Up</item>
+    </string-array>
     <string name="home_top_up">Top-Up</string>
     <string name="home_balance">Pulsa</string>
     <string name="home_mark_as_business">Tandai Perjalanan Bisnis</string>
     <string name="home_user_name">Nama</string>
-    <string name="home_current_balance">Sisa Saldo</string>
+    <string name="home_current_balance">Sisa Pulsa</string>
+    <string name="home_current_top_up">Sisa Saldo</string>
+    <string name="home_init_balance">100.000</string>
 
     <!--History-->
     <string name="history_trip_time">Waktu Perjalanan</string>
     <string name="history_today">Hari ini</string>
     <string name="history_business_trip">Business Trip</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--Error-->
 </resources>

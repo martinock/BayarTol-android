@@ -6,25 +6,81 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.zxing.Result;
 import com.upiki.bayartol.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment extends Fragment {
+import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
+/**
+ * Home fragment for scanning barcode.
+ * @author Martino Christanto Khuangga <martino.aksel.11@gmail.com>
+ * @since 2017.06.30
+ */
+public class HomeFragment extends Fragment
+        implements ZXingScannerView.ResultHandler {
+
+    private ZXingScannerView scannerView;
+
+    private CheckBox cbBusinessTrip;
+
+    private TextView tvUserName;
+    private TextView tvPaymentMethod;
+    private TextView tvCurrentBalance;
 
     public HomeFragment() {
-        // Required empty public constructor
+        //do nothing
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view =
+                inflater.inflate(R.layout.fragment_home, container, false);
+        scannerView = (ZXingScannerView) view
+                .findViewById(R.id.barcode_scanner);
+        cbBusinessTrip = (CheckBox) view
+                .findViewById(R.id.cb_mark_as_business);
+        tvUserName = (TextView) view
+                .findViewById(R.id.tv_user_name);
+        tvPaymentMethod = (TextView) view
+                .findViewById(R.id.tv_payment_method);
+        tvCurrentBalance = (TextView) view
+                .findViewById(R.id.tv_current_balance);
+        return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        scannerView.setResultHandler(this);
+        scannerView.startCamera();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        scannerView.stopCamera();
+    }
+
+    @Override
+    public void handleResult(Result result) {
+        if (isBusinessTrip()) {
+            Toast.makeText(getActivity(),
+                    result.getText(),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(),
+                    "Not your business",
+                    Toast.LENGTH_SHORT).show();
+        }
+        scannerView.resumeCameraPreview(this);
+    }
+
+    private boolean isBusinessTrip() {
+        return cbBusinessTrip.isChecked();
+    }
 }

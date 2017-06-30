@@ -12,7 +12,12 @@
 
     <!--Component Size-->
     <dimen name="_0dp">0dp</dimen>
+    <dimen name="_2dp">2dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_10dp">10dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
+    <dimen name="_40dp">40dp</dimen>
+    <dimen name="_60dp">60dp</dimen>
+    <dimen name="_200dp">200dp</dimen>
 
 </resources>
