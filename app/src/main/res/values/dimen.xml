@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Text Size-->
+    <dimen name="f_12sp">12sp</dimen>
+    <dimen name="f_14sp">14sp</dimen>
+    <dimen name="f_16sp">16sp</dimen>
+    <dimen name="f_20sp">20sp</dimen>
+    <dimen name="f_24sp">24sp</dimen>
+    <dimen name="f_34sp">34sp</dimen>
+    <dimen name="f_45sp">45sp</dimen>
+    <dimen name="f_56sp">56sp</dimen>
+
+    <!--Component Size-->
+    <dimen name="_0dp">0dp</dimen>
+    <dimen name="_5dp">5dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+
+</resources>
