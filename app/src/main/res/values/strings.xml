@@ -19,5 +19,8 @@
     <string name="history_today">Hari ini</string>
     <string name="history_business_trip">Business Trip</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <!--Error-->
 </resources>

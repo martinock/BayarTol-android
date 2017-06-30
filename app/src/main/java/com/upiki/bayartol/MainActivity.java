@@ -1,11 +1,17 @@
 package com.upiki.bayartol;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.upiki.bayartol.page.history.HistoryFragment;
+import com.upiki.bayartol.page.home.HomeFragment;
+import com.upiki.bayartol.page.organization.OrganizationFragment;
+import com.upiki.bayartol.page.profile.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,12 +25,17 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvOrganizationIcon;
     private TextView tvProfileIcon;
 
+    private int selectedFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         findIconView();
+        selectedFragment = 0;
+        HomeFragment homeFragment = new HomeFragment();
+        setFragment(homeFragment);
     }
 
     private void findIconView() {
@@ -75,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void setSelectedItem(int index) {
         clearSelectedItem();
+        selectedFragment = index;
         switch (index) {
             case 0:
                 ivHomeIcon.setImageResource(
@@ -111,19 +123,48 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    private void setFragment(Fragment fragment) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment)
+                .commit();
+    }
+
     public void onNavHomeClicked(View v) {
         setSelectedItem(0);
+        HomeFragment homeFragment = new HomeFragment();
+        setFragment(homeFragment);
     }
 
     public void onNavHistoryClicked(View v) {
         setSelectedItem(1);
+        HistoryFragment historyFragment =
+                new HistoryFragment();
+        setFragment(historyFragment);
     }
 
     public void onNavOrganizationClicked(View v) {
         setSelectedItem(2);
+        OrganizationFragment organizationFragment =
+                new OrganizationFragment();
+        setFragment(organizationFragment);
     }
 
     public void onNavProfileClicked(View v) {
         setSelectedItem(3);
+        ProfileFragment profileFragment =
+                new ProfileFragment();
+        setFragment(profileFragment);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (selectedFragment != 0) {
+            setSelectedItem(0);
+            HomeFragment homeFragment = new HomeFragment();
+            setFragment(homeFragment);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
