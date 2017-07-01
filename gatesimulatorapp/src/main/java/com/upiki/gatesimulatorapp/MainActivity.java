@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void handleResult(Result result) {
+        //TODO: write the transaction to database
         Toast.makeText(
                 getApplicationContext(),
                 result.getText(),
