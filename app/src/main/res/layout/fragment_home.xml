@@ -31,12 +31,11 @@
             android:prompt="@string/home_payment_method_prompt"/>
     </LinearLayout>
 
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
-        android:id="@+id/barcode_scanner"
+    <ImageView
+        android:id="@+id/barcode"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_0dp"
-        android:layout_weight="3"
-        android:layout_marginBottom="@dimen/_10dp"/>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
     <CheckBox
         android:id="@+id/cb_mark_as_business"
@@ -45,7 +44,8 @@
         android:layout_weight="1"
         android:text="@string/home_mark_as_business"
         android:textSize="@dimen/f_20sp"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:onClick="onHomeCheckBoxClicked"/>
 
     <LinearLayout
         android:layout_width="match_parent"

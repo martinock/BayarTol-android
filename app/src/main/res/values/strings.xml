@@ -27,6 +27,16 @@
     <string name="history_trip_time">Waktu Perjalanan</string>
     <string name="history_today">Hari ini</string>
     <string name="history_business_trip">Business Trip</string>
+    <string-array name="history_trip_times">
+        <item>Hari ini</item>
+        <item>Kemarin</item>
+        <item>1 minggu yang lalu</item>
+        <item>1 bulan yang lalu</item>
+        <item>> 1 bulan yang lalu </item>
+    </string-array>
+    <string name="history_init_payment_gate">Nama Gerbang Tol</string>
+    <string name="history_init_payment_cost">Rp 3.500</string>
+    <string name="history_init_payment_time">1 Juli 2017 (13.50)</string>
 
     <!--Error-->
 </resources>

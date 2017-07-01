@@ -1,13 +1,45 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="@dimen/_70dp"
+    android:orientation="vertical"
     tools:context="com.upiki.bayartol.page.history.HistoryFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/history" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10dp"
+        android:background="@color/cardview_light_background">
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/history_trip_time"
+            android:textSize="@dimen/f_16sp"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginRight="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"/>
+
+        <Spinner
+            android:id="@+id/spinner_trip_time"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            android:layout_marginLeft="@dimen/_20dp"
+            android:layout_marginStart="@dimen/_20dp"
+            android:layout_marginRight="@dimen/_20dp"
+            android:layout_marginEnd="@dimen/_20dp"
+            android:entries="@array/history_trip_times"
+            android:prompt="@string/home_payment_method_prompt"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_transaction_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>
