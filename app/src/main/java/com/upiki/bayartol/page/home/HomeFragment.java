@@ -60,9 +60,23 @@ public class HomeFragment extends Fragment {
         barcode = (ImageView) view.findViewById(R.id.barcode);
         generateBarcode();
         addSpinnerOnItemSelectedListener();
+        addCheckBoxClickListener();
         return view;
     }
 
+    private void addCheckBoxClickListener() {
+        cbBusinessTrip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                generateBarcode();
+            }
+        });
+    }
+
+    /**
+     * A method for generate barcode based on username,
+     * payment method, business trip check, and current balance.
+     */
     public void generateBarcode() {
         String rawCode = BayarTolUtil.barcodeStringGenerator(
                 convertTextViewToString(tvUserName),
@@ -101,7 +115,8 @@ public class HomeFragment extends Fragment {
         spinnerPaymentMethod.setOnItemSelectedListener(
                 new SpinnerOnItemSelectedListener(
                         tvPaymentMethod,
-                        tvCurrentBalance)
+                        tvCurrentBalance,
+                        this)
         );
     }
 
