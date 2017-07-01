@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">Gate Simulator App</string>
+    <!--Common-->
+    <string name="app_name">BayarTol</string>
+    <string name="scan_instruction">Scan QR Code pengguna jalan untuk melakukan transaksi</string>
+    <string name="quit_application_instruction">Tekan sekali lagi untuk keluar</string>
+    <string name="dummy_string">Upiki</string>
+
+    <!--Error-->
+    <string name="error">Error</string>
+    <string name="error_barcode_not_valid">QR Code tidak valid</string>
 </resources>
