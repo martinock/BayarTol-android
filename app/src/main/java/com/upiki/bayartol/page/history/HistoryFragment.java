@@ -56,42 +56,42 @@ public class HistoryFragment extends Fragment {
     private void getPaymentData() {
         Payment payment = new Payment(
                 "Padalarang - Cikampek",
-                3500,
+                35000,
                 "1 Juli 2017 (13.50)",
                 false);
         paymentList.add(payment);
 
         payment = new Payment(
                 "Cikampek - Padalarang",
-                6500,
+                650,
                 "1 Juli 2017 (18.50)",
                 true);
         paymentList.add(payment);
 
         payment = new Payment(
                 "Cikampek - Padalarang",
-                6501,
+                650100,
                 "1 Juli 2017 (18.51)",
                 false);
         paymentList.add(payment);
 
         payment = new Payment(
                 "Cikampek",
-                6502,
+                6502000,
                 "1 Juli 2017 (18.52)",
                 true);
         paymentList.add(payment);
 
         payment = new Payment(
                 "Cikampek - Padalarang",
-                6503,
+                65030000,
                 "1 Juli 2017 (18.53)",
                 false);
         paymentList.add(payment);
 
         payment = new Payment(
                 "Cikampek - Padalarang",
-                6504,
+                650400000,
                 "1 Juli 2017 (18.54)",
                 false);
         paymentList.add(payment);

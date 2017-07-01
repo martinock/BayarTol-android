@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.model.Payment;
+import com.upiki.bayartol.util.BayarTolUtil;
 
 import java.util.List;
 
@@ -65,7 +66,8 @@ public class PaymentAdapter extends
     public void onBindViewHolder(PaymentViewHolder holder, int position) {
         Payment payment = paymentList.get(position);
         holder.tvPaymentLocation.setText(payment.getPaymentLocation());
-        String formatedCost = String.valueOf(payment.getPaymentCost());
+        String formatedCost = BayarTolUtil.currencyFormatter(
+                payment.getPaymentCost());
         holder.tvPaymentCost.setText(formatedCost);
         holder.tvPaymentDate.setText(payment.getPaymentDate());
         holder.tvBusinessTrip.setVisibility(
