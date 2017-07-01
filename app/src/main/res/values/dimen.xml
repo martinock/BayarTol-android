@@ -4,6 +4,7 @@
     <dimen name="f_12sp">12sp</dimen>
     <dimen name="f_14sp">14sp</dimen>
     <dimen name="f_16sp">16sp</dimen>
+    <dimen name="f_18sp">18sp</dimen>
     <dimen name="f_20sp">20sp</dimen>
     <dimen name="f_24sp">24sp</dimen>
     <dimen name="f_34sp">34sp</dimen>
@@ -15,10 +16,12 @@
     <dimen name="_2dp">2dp</dimen>
     <dimen name="_5dp">5dp</dimen>
     <dimen name="_10dp">10dp</dimen>
+    <dimen name="_15dp">15dp</dimen>
     <dimen name="_20dp">20dp</dimen>
     <dimen name="_40dp">40dp</dimen>
     <dimen name="_60dp">60dp</dimen>
     <dimen name="_70dp">70dp</dimen>
+    <dimen name="_170dp">170dp</dimen>
     <dimen name="_200dp">200dp</dimen>
 
 </resources>
