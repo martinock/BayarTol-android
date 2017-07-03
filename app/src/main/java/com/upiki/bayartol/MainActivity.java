@@ -146,15 +146,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment(Fragment fragment) {
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_content,
-                        fragment,
-                        String.valueOf(
-                                selectedFragment))
-                .addToBackStack(String.valueOf(
-                        selectedFragment))
-                .commit();
+        boolean isFragmentExist =
+                getSupportFragmentManager()
+                        .popBackStackImmediate(
+                               String.valueOf(selectedFragment),
+                                0);
+
+        if (!isFragmentExist) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fl_content,
+                            fragment,
+                            String.valueOf(
+                                    selectedFragment))
+                    .addToBackStack(String.valueOf(
+                            selectedFragment))
+                    .commit();
+        }
     }
 
     /**
