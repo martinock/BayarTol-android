@@ -38,5 +38,13 @@
     <string name="history_init_payment_cost">Rp 3.500</string>
     <string name="history_init_payment_time">1 Juli 2017 (13.50)</string>
 
+    <!--Organization-->
+    <string name="organization_member">Daftar Anggota</string>
+    <string name="organization_member_label">Anggota</string>
+
+    <!--Transaction-->
+    <string name="transaction_label">Transaksi</string>
+    <string name="transaction_see_label">Lihat Transaksi</string>
+
     <!--Error-->
 </resources>
