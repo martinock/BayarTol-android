@@ -1,6 +1,7 @@
 package com.upiki.bayartol.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -83,5 +84,9 @@ public class TransactionActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(listener);
+    }
+
+    public static void startThisActivity(Activity activity) {
+        activity.startActivity(new Intent(activity, TransactionActivity.class));
     }
 }

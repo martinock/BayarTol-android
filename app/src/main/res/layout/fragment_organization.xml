@@ -101,6 +101,7 @@
                     android:background="@color/grey"/>
 
                 <LinearLayout
+                    android:id="@+id/goto_list_member"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -155,6 +156,7 @@
                     android:background="@color/grey"/>
 
                 <LinearLayout
+                    android:id="@+id/goto_list_transaction"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
