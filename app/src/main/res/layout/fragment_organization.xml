@@ -18,14 +18,65 @@
             android:orientation="vertical"
             android:padding="@dimen/_10dp">
 
-            <TextView
-                android:gravity="center"
+            <android.support.v7.widget.GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:text="NAMA ORGANISASI"
-                android:textSize="@dimen/_20dp"
+                android:padding="@dimen/_5dp"
+                android:layout_marginBottom="@dimen/_5dp"
                 android:background="@color/white"
-                android:layout_marginBottom="@dimen/_5dp"/>
+                app:columnCount="2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="NAMA ORGANISASI"
+                    android:textSize="@dimen/f_20sp"
+                    app:layout_columnWeight="1"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_rowSpan="2"
+                    app:layout_columnWeight="1"
+                    android:orientation="vertical"
+                    android:gravity="end">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Jalan Ganesha no10"
+                        android:textSize="@dimen/f_12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Bandung"
+                        android:textSize="@dimen/f_12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="40135"
+                        android:textSize="@dimen/f_12sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="Indonesia"
+                        android:textSize="@dimen/f_12sp"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="08123456789"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:textSize="@dimen/f_12sp"
+                    app:layout_columnWeight="1"/>
+
+            </android.support.v7.widget.GridLayout>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -121,7 +172,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
-                        android:src="@mipmap/ic_arrow_down"
+                        android:src="@mipmap/ic_right_arrow"
                         android:tint="@color/colorPrimary"/>
 
                 </LinearLayout>
