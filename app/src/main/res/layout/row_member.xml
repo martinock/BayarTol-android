@@ -20,7 +20,7 @@
             tools:text="Silveriar"
             android:maxLines="1"
             android:textSize="@dimen/f_20sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/phone_number"
