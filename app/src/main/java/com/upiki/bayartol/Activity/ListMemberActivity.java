@@ -17,14 +17,14 @@ import java.util.List;
 
 public class ListMemberActivity extends AppCompatActivity {
 
-    RecyclerView
+    RecyclerView mListMember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_member);
 
-
+        mListMember = findViewById(R.id.list_member);
     }
 
     public static void startThisActivity(Activity activity) {
