@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,13 +25,21 @@ public class ListMemberActivity extends AppCompatActivity {
     RecyclerView mListMember;
     ProgressBar mLoading;
 
+    List<User> listMembers;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_member);
 
+        // initialization view
         mListMember = (RecyclerView) findViewById(R.id.list_member);
         mLoading = (ProgressBar) findViewById(R.id.loading);
+
+        // set up recyclerview adapter
+        MemberAdapter memberAdapter = new MemberAdapter(listMembers);
+        mListMember.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        mListMember.setAdapter(memberAdapter);
 
     }
 

@@ -18,10 +18,6 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by taufic on 7/14/2017.
- */
-
 public class Api<T> {
 
     private static final String GET = "GET";

@@ -7,10 +7,6 @@ import com.upiki.bayartol.api.ApiClass.User;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by taufic on 7/15/2017.
- */
-
 public class UserApi extends Api {
 
     public void postUserUid(Context context, ApiListener<User> apiListener) {
