@@ -46,5 +46,8 @@
     <string name="transaction_label">Transaksi</string>
     <string name="transaction_see_label">Lihat Transaksi</string>
 
+    <!--Member-->
+    <string name="add_member">Tambah Member Baru</string>
+
     <!--Error-->
 </resources>
