@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/add_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/add_new_member"
+            android:layout_width="@dimen/_50dp"
+            android:layout_height="@dimen/_50dp"
+            android:src="@drawable/ic_add"
+            android:tint="@color/colorAccent"
+            android:layout_marginRight="@dimen/_5dp"
+            android:padding="@dimen/_10dp"/>
+
+        <TextView
+            android:id="@+id/add_new_member_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/add_member"
+            android:layout_gravity="center"
+            android:textSize="@dimen/f_16sp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/add_field_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/_10dp">
+
+        <EditText
+            android:id="@+id/add_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Username"
+            android:textSize="@dimen/f_12sp"/>
+
+        <EditText
+            android:id="@+id/add_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor Hp"
+            android:textSize="@dimen/f_12sp"/>
+
+        <Button
+            android:id="@+id/add_new_member_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TAMBAH ANGGOTA"
+            android:background="@color/colorPrimary"
+            android:layout_marginTop="@dimen/_10dp"
+            android:textSize="@dimen/f_16sp"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</LinearLayout>
