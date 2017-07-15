@@ -93,9 +93,9 @@ public class ProfileFragment extends Fragment {
         if (isValid) {
 
             UserApi userApi = new UserApi();
-            userApi.postRegisterUid(getActivity(),
+            userApi.postRegisterUser(getActivity(),
                     mEmailField.getText().toString(),
-                    "",
+                    "1234",
                     mNameField.getText().toString(),
                     mPhoneNumberField.getText().toString(),
                     mAddressField.getText().toString(),
@@ -105,6 +105,7 @@ public class ProfileFragment extends Fragment {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(UID, result.uid);
+                            Toast.makeText(getActivity(), "berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
