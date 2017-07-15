@@ -109,7 +109,7 @@ public class ProfileFragment extends Fragment {
                         public void onApiSuccess(User result, String rawJson) {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(UID, "UID" +  result.uid);
+                            editor.putString(UID, result.uid);
                             editor.commit();
                             Log.d(UID, result.uid);
                             Toast.makeText(getActivity(), "berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
@@ -132,7 +132,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onApiSuccess(User result, String rawJson) {
                 mNameField.append(result.name);
-                mEmailField.append(result.email);
+//                mEmailField.append(result.email);
                 mPhoneNumberField.append(result.phone_number);
                 mAddressField.append(result.address);
             }

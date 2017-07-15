@@ -99,7 +99,9 @@ public class Api<T> {
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+
                 onApiResponse(response, type, apiListener);
+
             }
         }, new Response.ErrorListener() {
             @Override
