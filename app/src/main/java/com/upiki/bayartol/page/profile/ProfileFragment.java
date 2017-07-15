@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                saveProfile();
             }
         });
 
