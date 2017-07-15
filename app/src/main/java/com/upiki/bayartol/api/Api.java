@@ -35,12 +35,11 @@ public class Api<T> {
 
     public static Map<String, Object> getHeaders(Context context) {
         Map<String, Object> headers = new HashMap<>();
-//        headers.put("Uid",);
         return headers;
     }
 
 //    public void callPostApi(Context context, String url, final Map<String, String> params, final Map headers, Response.Listener<String> apiListener, Response.ErrorListener errorListener) {
-    public void callPostApi(Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
+    public void callPostApi(final Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
 
         final Map<String, String> form = params == null? new HashMap<String, String>() : params;
 
@@ -95,7 +94,7 @@ public class Api<T> {
 
     }
 
-    public void callGetApi(Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
+    public void callGetApi(final Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -114,7 +113,6 @@ public class Api<T> {
                     return headers;
                 } else {
                     HashMap<String, String> headers = new HashMap<String, String>();
-                    headers.put("charset", "utf-8");
                     return headers;
                 }
 

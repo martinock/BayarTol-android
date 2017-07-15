@@ -21,9 +21,9 @@ public class UserApi extends Api {
         callPostApi(context, ApiConstanta.REGISTER, form, null, User.class, apiListener);
     }
 
-    public void getUserProfile(Context context, ApiListener<User> apiListener) {
+    public void getUserProfile(Context context, String uid, ApiListener<User> apiListener) {
 
-        callPostApi(context, ApiConstanta.GET_PROFILE, null, getHeaders(context), User.class, apiListener);
+        callGetApi(context, String.format(ApiConstanta.GET_PROFILE, uid), null, null, User.class, apiListener);
     }
 
 

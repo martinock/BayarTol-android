@@ -28,14 +28,15 @@ public class ProfileFragment extends Fragment {
     public static String PROFILE = "profile";
     public static String UID = "uid";
 
-    TextView mUserName;
-    TextView mUserEmail;
-    EditText mNameField;
-    EditText mEmailField;
-    EditText mAddressField;
-    EditText mPhoneNumberField;
-    Button mSubmit;
+    public TextView mUserName;
+    public TextView mUserEmail;
+    public EditText mNameField;
+    public EditText mEmailField;
+    public EditText mAddressField;
+    public EditText mPhoneNumberField;
+    public Button mSubmit;
 
+    public UserApi userApi;
 
 
     public ProfileFragment() {
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+
 
         mUserName = (TextView) view.findViewById(R.id.username);
         mUserEmail = (TextView) view.findViewById(R.id.email);
@@ -64,6 +66,9 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        userApi = new UserApi();
+
+        getProfile();
 
         // Inflate the layout for this fragment
         return view;
@@ -93,8 +98,6 @@ public class ProfileFragment extends Fragment {
         }
 
         if (isValid) {
-
-            UserApi userApi = new UserApi();
             userApi.postRegisterUser(getActivity(),
                     mEmailField.getText().toString(),
                     "123456",
@@ -106,7 +109,8 @@ public class ProfileFragment extends Fragment {
                         public void onApiSuccess(User result, String rawJson) {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(UID, result.uid);
+                            editor.putString(UID, "UID" +  result.uid);
+                            editor.commit();
                             Log.d(UID, result.uid);
                             Toast.makeText(getActivity(), "berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
                         }
@@ -119,6 +123,25 @@ public class ProfileFragment extends Fragment {
             );
 
         }
+    }
+
+    private void getProfile() {
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+        String uid = sharedPreferences.getString(ProfileFragment.UID, "");
+        userApi.getUserProfile(getActivity(), uid, new Api.ApiListener<User>() {
+            @Override
+            public void onApiSuccess(User result, String rawJson) {
+                mNameField.append(result.name);
+                mEmailField.append(result.email);
+                mPhoneNumberField.append(result.phone_number);
+                mAddressField.append(result.address);
+            }
+
+            @Override
+            public void onApiError(String errorMessage) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
