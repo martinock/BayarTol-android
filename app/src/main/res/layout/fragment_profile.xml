@@ -143,6 +143,7 @@
             android:textSize="@dimen/f_16sp"
             android:textColor="@color/white"
             android:layout_gravity="bottom"/>
+
     </LinearLayout>
 
 </ScrollView>

@@ -3,6 +3,7 @@ package com.upiki.bayartol.api;
 import android.content.Context;
 import android.util.Log;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -14,6 +15,7 @@ import com.upiki.bayartol.util.VolleySingleton;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.Map;
@@ -68,16 +70,25 @@ public class Api<T> {
                             } else {
                                 HashMap<String, String> headers = new HashMap<String, String>();
                                 headers.put("Content-Type", "application/json");
-                                headers.put("charset", "utf-8");
+                                headers.put("Accept", "application/json");
                                 return headers;
                             }
 
                         }
-                        @Override
-                        protected Map<String, String> getParams() {
-                            return form;
-                        }
-                    };
+
+            @Override
+            public byte[] getBody() throws AuthFailureError {
+                JSONObject jsonObject = new JSONObject(form);
+                String requestBody = jsonObject.toString();
+
+                try {
+                    return requestBody == null ? null : requestBody.getBytes("utf-8");
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        };
 
         Log.d(POST, "URL: " + url);
         VolleySingleton.getInstance(context).addToRequestQueue(stringRequest);

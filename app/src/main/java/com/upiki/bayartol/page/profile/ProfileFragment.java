@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -106,6 +107,7 @@ public class ProfileFragment extends Fragment {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(UID, result.uid);
+                            Log.d(UID, result.uid);
                             Toast.makeText(getActivity(), "berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
                         }
 
