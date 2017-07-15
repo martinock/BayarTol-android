@@ -1,4 +1,4 @@
-<FrameLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +7,6 @@
     tools:context="com.upiki.bayartol.page.profile.ProfileFragment"
     android:background="@color/light_grey"
     android:paddingBottom="@dimen/_70dp">
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -119,6 +115,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Telepon"
+                    android:inputType="phone"
                     android:textSize="@dimen/f_12sp"/>
 
                 <TextView
@@ -136,19 +133,14 @@
 
             </LinearLayout>
 
+            <Button
+                android:id="@+id/save_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SIMPAN"
+                android:background="@color/colorPrimary"
+                android:layout_margin="@dimen/_10dp"
+                android:textSize="@dimen/f_16sp"
+                android:textColor="@color/white"/>
         </LinearLayout>
-
-    </ScrollView>
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SIMPAN"
-        android:background="@color/colorPrimary"
-        android:layout_margin="@dimen/_10dp"
-        android:textSize="@dimen/f_16sp"
-        android:textColor="@color/white"
-        android:layout_gravity="bottom"/>
-
-</FrameLayout>
+</ScrollView>

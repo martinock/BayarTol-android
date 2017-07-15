@@ -26,13 +26,13 @@
             android:id="@+id/spinner_month"
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="2"/>
 
         <Spinner
             android:id="@+id/spinner_year"
             android:layout_width="@dimen/_0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="2"/>
 
     </LinearLayout>
 
