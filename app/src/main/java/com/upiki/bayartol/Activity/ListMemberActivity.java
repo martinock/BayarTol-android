@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.ApiClass.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListMemberActivity extends AppCompatActivity {
@@ -25,7 +26,7 @@ public class ListMemberActivity extends AppCompatActivity {
     RecyclerView mListMember;
     ProgressBar mLoading;
 
-    List<User> listMembers;
+    public List<User> listMembers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +37,16 @@ public class ListMemberActivity extends AppCompatActivity {
         mListMember = (RecyclerView) findViewById(R.id.list_member);
         mLoading = (ProgressBar) findViewById(R.id.loading);
 
+        listMembers = new ArrayList<>();
+        User dummyUser = new User();
+        dummyUser.name = "Silveriar";
+        dummyUser.phone_number = "0813131313";
+        listMembers.add(dummyUser);
+        listMembers.add(dummyUser);
+
         // set up recyclerview adapter
         MemberAdapter memberAdapter = new MemberAdapter(listMembers);
-        mListMember.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        mListMember.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mListMember.setAdapter(memberAdapter);
 
     }
@@ -65,7 +73,7 @@ public class ListMemberActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == listMember.size() + 1) {
+            if (position == listMember.size()) {
                 return ADD;
             } else {
                 return MEMBER;
@@ -88,8 +96,15 @@ public class ListMemberActivity extends AppCompatActivity {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             if (holder instanceof MemberHolder) {
                 MemberHolder memberHolder = (MemberHolder) holder;
-                memberHolder.mName.setText(listMember.get(position).name);
-                memberHolder.mPhoneNumber.setText(listMember.get(position).phone_number);
+                if (listMember.size() > 0) {
+                    memberHolder.mName.setVisibility(View.VISIBLE);
+                    memberHolder.mPhoneNumber.setVisibility(View.VISIBLE);
+                    memberHolder.mName.setText(listMember.get(position).name);
+                    memberHolder.mPhoneNumber.setText(listMember.get(position).phone_number);
+                } else {
+                    memberHolder.mName.setVisibility(View.GONE);
+                    memberHolder.mPhoneNumber.setVisibility(View.GONE);
+                }
             } else if (holder instanceof AddHolder) {
                 final AddHolder addHolder = (AddHolder) holder;
                 addHolder.mAddLabel.setVisibility(View.VISIBLE);

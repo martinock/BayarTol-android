@@ -8,139 +8,141 @@
     android:background="@color/light_grey"
     android:paddingBottom="@dimen/_70dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/_10dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="@dimen/_10dp">
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/_10dp">
+
+            <RelativeLayout
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:gravity="center">
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:visibility="gone"/>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:src="@drawable/ic_profile"
+                    android:scaleType="centerCrop"
+                    app:border_color="@color/default_grey"
+                    app:border_width="@dimen/_2dp"/>
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="@dimen/_10dp">
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_10dp">
 
-                <RelativeLayout
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:gravity="center">
-
-                    <ProgressBar
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:visibility="gone"/>
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:clickable="true"
-                        android:src="@drawable/ic_profile"
-                        android:scaleType="centerCrop"
-                        app:border_color="@color/default_grey"
-                        app:border_width="@dimen/_2dp"/>
-
-                </RelativeLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/_10dp">
+                    android:layout_marginBottom="@dimen/_5dp"
+                    tools:text="Silver Leoriar De Coolsten Mann IX"
+                    android:textSize="@dimen/f_16sp"
+                    android:textStyle="bold"
+                    android:maxLines="1"/>
 
-                    <TextView
-                        android:id="@+id/username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/_5dp"
-                        tools:text="Silver Leoriar De Coolsten Mann IX"
-                        android:textSize="@dimen/f_16sp"
-                        android:textStyle="bold"
-                        android:maxLines="1"/>
-
-                    <TextView
-                        android:id="@+id/email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="silver@gmail.com"
-                        android:textSize="@dimen/f_14sp"
-                        android:textColor="@color/default_grey"/>
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="silver@gmail.com"
+                    android:textSize="@dimen/f_14sp"
+                    android:textColor="@color/default_grey"/>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/_10dp"
-                android:background="@color/white"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nama Lengkap"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/profile_name_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Lengkap"
-                    android:textSize="@dimen/f_12sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/profile_email_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:textSize="@dimen/f_12sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Telepon"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/profile_phone_number_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Telepon"
-                    android:inputType="phone"
-                    android:textSize="@dimen/f_12sp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Alamat"
-                    android:visibility="gone"/>
-
-                <EditText
-                    android:id="@+id/profile_address_field"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Alamat"
-                    android:textSize="@dimen/f_12sp"/>
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/save_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="SIMPAN"
-                android:background="@color/colorPrimary"
-                android:layout_margin="@dimen/_10dp"
-                android:textSize="@dimen/f_16sp"
-                android:textColor="@color/white"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_10dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Lengkap"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/profile_name_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nama Lengkap"
+                android:textSize="@dimen/f_12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/profile_email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:textSize="@dimen/f_12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telepon"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/profile_phone_number_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telepon"
+                android:inputType="phone"
+                android:textSize="@dimen/f_12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Alamat"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/profile_address_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Alamat"
+                android:textSize="@dimen/f_12sp"/>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SIMPAN"
+            android:background="@color/colorPrimary"
+            android:layout_margin="@dimen/_10dp"
+            android:textSize="@dimen/f_16sp"
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"/>
+    </LinearLayout>
+
 </ScrollView>

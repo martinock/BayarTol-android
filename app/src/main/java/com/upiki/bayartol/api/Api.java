@@ -51,6 +51,7 @@ public class Api<T> {
                             onApiResponse(new JSONObject(response), type, apiListener);
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            onApiError(new VolleyError(e.getMessage()), apiListener);
                         }
                     }
         },

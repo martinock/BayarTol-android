@@ -58,13 +58,14 @@ public class ProfileFragment extends Fragment {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(getActivity(), "tess", Toast.LENGTH_SHORT).show();
                 saveProfile();
             }
         });
 
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        return view;
     }
 
     private void saveProfile() {
@@ -95,7 +96,7 @@ public class ProfileFragment extends Fragment {
             UserApi userApi = new UserApi();
             userApi.postRegisterUser(getActivity(),
                     mEmailField.getText().toString(),
-                    "1234",
+                    "123456",
                     mNameField.getText().toString(),
                     mPhoneNumberField.getText().toString(),
                     mAddressField.getText().toString(),

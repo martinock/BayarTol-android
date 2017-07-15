@@ -13,16 +13,20 @@ public class UserApi extends Api {
         Map<String, String> form = new HashMap<>();
         form.put("role", "user");
         form.put("email", email);
-        form.put("email", email);
-        form.put("email", email);
-        form.put("email", email);
+        form.put("password", password);
+        form.put("name", name);
+        form.put("phone_number", phone_number);
+        form.put("address", address);
 
-        callGetApi(context, ApiConstanta.REGISTER, form, null, User.class, apiListener);
+        callPostApi(context, ApiConstanta.REGISTER, form, null, User.class, apiListener);
     }
 
     public void getUserProfile(Context context, ApiListener<User> apiListener) {
 
         callPostApi(context, ApiConstanta.GET_PROFILE, null, getHeaders(context), User.class, apiListener);
     }
+
+
+
 }
 
