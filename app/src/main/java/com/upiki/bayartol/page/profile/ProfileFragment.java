@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.ApiClass.User;
-import com.upiki.bayartol.api.UserApi;
+import com.upiki.bayartol.api.BayarTolApi;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,9 +35,6 @@ public class ProfileFragment extends Fragment {
     public EditText mAddressField;
     public EditText mPhoneNumberField;
     public Button mSubmit;
-
-    public UserApi userApi;
-
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -65,8 +62,6 @@ public class ProfileFragment extends Fragment {
                 saveProfile();
             }
         });
-
-        userApi = new UserApi();
 
         getProfile();
 
@@ -98,7 +93,7 @@ public class ProfileFragment extends Fragment {
         }
 
         if (isValid) {
-            userApi.postRegisterUser(getActivity(),
+            BayarTolApi.userApi.postRegisterUser(getActivity(),
                     mEmailField.getText().toString(),
                     "123456",
                     mNameField.getText().toString(),
@@ -128,7 +123,7 @@ public class ProfileFragment extends Fragment {
     private void getProfile() {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
         String uid = sharedPreferences.getString(ProfileFragment.UID, "");
-        userApi.getUserProfile(getActivity(), uid, new Api.ApiListener<User>() {
+        BayarTolApi.userApi.getUserProfile(getActivity(), uid, new Api.ApiListener<User>() {
             @Override
             public void onApiSuccess(User result, String rawJson) {
                 mNameField.append(result.name);

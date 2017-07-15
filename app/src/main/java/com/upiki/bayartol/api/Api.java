@@ -38,12 +38,8 @@ public class Api<T> {
         return headers;
     }
 
-//    public void callPostApi(Context context, String url, final Map<String, String> params, final Map headers, Response.Listener<String> apiListener, Response.ErrorListener errorListener) {
-    public void callPostApi(final Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
+    public void callPostApi(final Context context, String url, final Map<String, String> params, final Map<String, String> body, final Map headers, final Type type, final ApiListener apiListener) {
 
-        final Map<String, String> form = params == null? new HashMap<String, String>() : params;
-
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, apiListener, errorListener)
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
@@ -77,6 +73,7 @@ public class Api<T> {
 
             @Override
             public byte[] getBody() throws AuthFailureError {
+                final Map<String, String> form = body == null? new HashMap<String, String>() : body;
                 JSONObject jsonObject = new JSONObject(form);
                 String requestBody = jsonObject.toString();
 
@@ -87,6 +84,12 @@ public class Api<T> {
                     return null;
                 }
             }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> form = params == null ? new HashMap<String, String>() : params;
+                return form;
+            }
         };
 
         Log.d(POST, "URL: " + url);
@@ -94,7 +97,7 @@ public class Api<T> {
 
     }
 
-    public void callGetApi(final Context context, String url, final Map<String, String> params, final Map headers, final Type type, final ApiListener apiListener) {
+    public void callGetApi(final Context context, String url, final Map headers, final Type type, final ApiListener apiListener) {
 
         JsonObjectRequest stringRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
