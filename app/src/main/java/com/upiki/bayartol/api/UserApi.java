@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class UserApi extends Api {
 
-    public void postRegisterUid(Context context, String email, String password, String name, String phone_number, String address, ApiListener<UserInfo> apiListener) {
+    public void postRegisterUid(Context context, String email, String password, String name, String phone_number, String address, ApiListener<User> apiListener) {
         Map<String, String> form = new HashMap<>();
         form.put("role", "user");
         form.put("email", email);
@@ -20,11 +20,9 @@ public class UserApi extends Api {
         callGetApi(context, ApiConstanta.REGISTER, form, null, User.class, apiListener);
     }
 
-    public void getUserProfile(Context context, ApiListener<UserInfo> apiListener) {
+    public void getUserProfile(Context context, ApiListener<User> apiListener) {
 
         callPostApi(context, ApiConstanta.GET_PROFILE, null, getHeaders(context), User.class, apiListener);
     }
-
-    public class UserInfo extends Api<User> {}
 }
 
