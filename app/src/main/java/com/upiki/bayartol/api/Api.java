@@ -9,7 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.upiki.bayartol.VolleySingleton;
+import com.upiki.bayartol.util.VolleySingleton;
 
 import org.json.JSONException;
 import org.json.JSONObject;

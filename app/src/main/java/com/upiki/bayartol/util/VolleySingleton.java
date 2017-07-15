@@ -1,4 +1,4 @@
-package com.upiki.bayartol;
+package com.upiki.bayartol.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;

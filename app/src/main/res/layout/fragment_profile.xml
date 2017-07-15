@@ -88,6 +88,7 @@
                     android:visibility="gone"/>
 
                 <EditText
+                    android:id="@+id/profile_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Nama Lengkap"
@@ -100,6 +101,7 @@
                     android:visibility="gone"/>
 
                 <EditText
+                    android:id="@+id/profile_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Email"
@@ -112,6 +114,7 @@
                     android:visibility="gone"/>
 
                 <EditText
+                    android:id="@+id/profile_phone_number_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Telepon"
@@ -124,6 +127,7 @@
                     android:visibility="gone"/>
 
                 <EditText
+                    android:id="@+id/profile_address_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Alamat"
