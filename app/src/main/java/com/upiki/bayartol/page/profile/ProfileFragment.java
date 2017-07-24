@@ -58,7 +58,6 @@ public class ProfileFragment extends Fragment {
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "tess", Toast.LENGTH_SHORT).show();
                 saveProfile();
             }
         });
@@ -105,9 +104,9 @@ public class ProfileFragment extends Fragment {
                             SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(UID, result.uid);
-                            editor.commit();
+                            editor.apply();
                             Log.d(UID, result.uid);
-                            Toast.makeText(getActivity(), "berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -116,7 +115,6 @@ public class ProfileFragment extends Fragment {
                         }
                     }
             );
-
         }
     }
 
@@ -127,7 +125,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onApiSuccess(User result, String rawJson) {
                 mNameField.append(result.name);
-//                mEmailField.append(result.email);
+                mEmailField.append(result.email);
                 mPhoneNumberField.append(result.phone_number);
                 mAddressField.append(result.address);
             }

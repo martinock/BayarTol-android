@@ -58,6 +58,7 @@ public class HomeFragment extends Fragment {
         tvCurrentBalance = (TextView) view
                 .findViewById(R.id.tv_current_balance);
         barcode = (ImageView) view.findViewById(R.id.barcode);
+
         generateBarcode();
         addSpinnerOnItemSelectedListener();
         addCheckBoxClickListener();

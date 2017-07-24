@@ -24,8 +24,5 @@ public class UserApi extends Api {
     public void getUserProfile(Context context, String uid, ApiListener<User> apiListener) {
         callGetApi(context, String.format(ApiConstanta.GET_PROFILE, uid), null, User.class, apiListener);
     }
-
-
-
 }
 

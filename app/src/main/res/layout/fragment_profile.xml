@@ -47,7 +47,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/_10dp">
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginStart="@dimen/_10dp">
 
                 <TextView
                     android:id="@+id/username"
@@ -81,54 +82,55 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Nama Lengkap"
+                android:text="@string/full_name"
                 android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/profile_name_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nama Lengkap"
+                android:hint="@string/full_name"
                 android:textSize="@dimen/f_12sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email"
                 android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/profile_email_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
                 android:textSize="@dimen/f_12sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telepon"
+                android:text="@string/phone"
                 android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/profile_phone_number_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Telepon"
+                android:hint="@string/phone"
                 android:inputType="phone"
                 android:textSize="@dimen/f_12sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Alamat"
+                android:text="@string/address"
                 android:visibility="gone"/>
 
             <EditText
                 android:id="@+id/profile_address_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Alamat"
+                android:hint="@string/address"
                 android:textSize="@dimen/f_12sp"/>
 
         </LinearLayout>
@@ -137,7 +139,7 @@
             android:id="@+id/save_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SIMPAN"
+            android:text="@string/save"
             android:background="@color/colorPrimary"
             android:layout_margin="@dimen/_10dp"
             android:textSize="@dimen/f_16sp"
