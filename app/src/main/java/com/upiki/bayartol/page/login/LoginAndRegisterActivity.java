@@ -2,10 +2,15 @@ package com.upiki.bayartol.page.login;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.upiki.bayartol.R;
+import com.upiki.bayartol.api.Api;
+import com.upiki.bayartol.api.ApiClass.User;
+import com.upiki.bayartol.api.BayarTolApi;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -38,7 +43,18 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_email_format_invalid));
             return;
         }
-        //TODO: create login API to check email (user) exist or not
+        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<User>() {
+            @Override
+            public void onApiSuccess(User result, String rawJson) {
+                Toast.makeText(getApplicationContext(), "Berhasil login " + result.name, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onApiError(String errorMessage) {
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                Log.d("LOGIN VOLLEY", errorMessage);
+            }
+        });
         if (isEmailExist) {
             login();
         } else {
