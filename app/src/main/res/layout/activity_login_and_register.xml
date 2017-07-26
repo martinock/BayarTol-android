@@ -33,6 +33,12 @@
             android:layout_marginTop="@dimen/_20dp"
             android:background="@color/colorPrimary"
             android:onClick="onSubmitClick"/>
-    </LinearLayout>
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10dp"
+            android:visibility="invisible"/>
+    </LinearLayout>
 </FrameLayout>

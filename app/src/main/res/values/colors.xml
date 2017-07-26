@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="button_disabled">#ef9a9a</color>
     <color name="colorPrimary">#F44336</color>
     <color name="colorPrimaryDark">#B71C1C</color>
-    <color name="colorAccent">#76FF03</color>
+    <color name="colorAccent">#F44336</color>
     <color name="dark_blue">#0D47A1</color>
     <color name="light_blue">#64B5F6</color>
     <color name="yellow">#FFFF00</color>
