@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.upiki.bayartol.page.profile.EditProfileActivity">
+    <LinearLayout
+        android:id="@+id/ll_edit_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/profile_name_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/full_name"
+            android:textSize="@dimen/f_12sp"/>
+
+        <EditText
+            android:id="@+id/profile_email_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/f_12sp"/>
+
+        <EditText
+            android:id="@+id/profile_phone_number_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:textSize="@dimen/f_12sp"/>
+
+        <EditText
+            android:id="@+id/profile_address_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address"
+            android:textSize="@dimen/f_12sp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_submit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_10dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:text="@string/save"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white"/>
+</LinearLayout>

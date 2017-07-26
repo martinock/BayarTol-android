@@ -1,6 +1,8 @@
 package com.upiki.bayartol.page.home;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.listener.SpinnerOnItemSelectedListener;
+import com.upiki.bayartol.page.profile.ProfileFragment;
 import com.upiki.bayartol.util.BayarTolUtil;
 
 
@@ -38,6 +42,8 @@ public class HomeFragment extends Fragment {
     private TextView tvPaymentMethod;
     private TextView tvCurrentBalance;
 
+    private ProgressBar progressBar;
+
     public HomeFragment() {
         //do nothing
     }
@@ -47,6 +53,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view =
                 inflater.inflate(R.layout.fragment_home, container, false);
+        progressBar = (ProgressBar) view.findViewById(R.id.home_img_progress_bar);
         cbBusinessTrip = (CheckBox) view
                 .findViewById(R.id.cb_mark_as_business);
         spinnerPaymentMethod = (Spinner) view
@@ -58,6 +65,10 @@ public class HomeFragment extends Fragment {
         tvCurrentBalance = (TextView) view
                 .findViewById(R.id.tv_current_balance);
         barcode = (ImageView) view.findViewById(R.id.barcode);
+
+        SharedPreferences sp = getActivity().getSharedPreferences(
+                ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+        tvUserName.setText(sp.getString(ProfileFragment.USERNAME, ""));
 
         generateBarcode();
         addSpinnerOnItemSelectedListener();
@@ -79,37 +90,51 @@ public class HomeFragment extends Fragment {
      * payment method, business trip check, and current balance.
      */
     public void generateBarcode() {
-        String rawCode = BayarTolUtil.barcodeStringGenerator(
-                convertTextViewToString(tvUserName),
-                convertTextViewToString(tvPaymentMethod),
-                isBusinessTrip(),
-                convertTextViewToString(tvCurrentBalance)
-        );
-        QRCodeWriter writer = new QRCodeWriter();
-        try {
-            BitMatrix bitMatrix = writer.encode(
-                    rawCode,
-                    BarcodeFormat.QR_CODE,
-                    DEFAULT_QR_CODE_SIZE,
-                    DEFAULT_QR_CODE_SIZE);
-            Bitmap bitmap = Bitmap.createBitmap(
-                    DEFAULT_QR_CODE_SIZE,
-                    DEFAULT_QR_CODE_SIZE,
-                    Bitmap.Config.RGB_565);
-            for (int x = 0; x < DEFAULT_QR_CODE_SIZE; x++) {
-                for (int y = 0; y < DEFAULT_QR_CODE_SIZE; y++) {
-                    bitmap.setPixel(
-                            x,
-                            y,
-                            bitMatrix.get(x, y)
-                                    ? Color.BLACK
-                                    : Color.WHITE);
+        progressBar.setVisibility(View.VISIBLE);
+        barcode.setVisibility(View.GONE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String rawCode = BayarTolUtil.barcodeStringGenerator(
+                        convertTextViewToString(tvUserName),
+                        convertTextViewToString(tvPaymentMethod),
+                        isBusinessTrip(),
+                        convertTextViewToString(tvCurrentBalance)
+                );
+                QRCodeWriter writer = new QRCodeWriter();
+                try {
+                    BitMatrix bitMatrix = writer.encode(
+                            rawCode,
+                            BarcodeFormat.QR_CODE,
+                            DEFAULT_QR_CODE_SIZE,
+                            DEFAULT_QR_CODE_SIZE);
+                    final Bitmap bitmap = Bitmap.createBitmap(
+                            DEFAULT_QR_CODE_SIZE,
+                            DEFAULT_QR_CODE_SIZE,
+                            Bitmap.Config.RGB_565);
+                    for (int x = 0; x < DEFAULT_QR_CODE_SIZE; x++) {
+                        for (int y = 0; y < DEFAULT_QR_CODE_SIZE; y++) {
+                            bitmap.setPixel(
+                                    x,
+                                    y,
+                                    bitMatrix.get(x, y)
+                                            ? Color.BLACK
+                                            : Color.WHITE);
+                        }
+                    }
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            barcode.setImageBitmap(bitmap);
+                            progressBar.setVisibility(View.GONE);
+                            barcode.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } catch (WriterException e) {
+                    e.printStackTrace();
                 }
             }
-            barcode.setImageBitmap(bitmap);
-        } catch (WriterException e) {
-            e.printStackTrace();
-        }
+        }).start();
     }
 
     private void addSpinnerOnItemSelectedListener() {

@@ -1,5 +1,7 @@
 package com.upiki.bayartol;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,6 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.upiki.bayartol.api.Api;
+import com.upiki.bayartol.api.ApiClass.User;
+import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.page.history.HistoryFragment;
 import com.upiki.bayartol.page.home.HomeFragment;
 import com.upiki.bayartol.page.organization.OrganizationFragment;
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvTitle;
 
+    SharedPreferences sharedPreferences;
+
     private int selectedFragment;
     private boolean isBackPressed = false;
 
@@ -48,12 +55,39 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         tvTitle = (TextView) findViewById(R.id.tv_title);
-
+        sharedPreferences = getSharedPreferences(
+                ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+        if (!sharedPreferences.contains(ProfileFragment.USERNAME)) {
+            getProfile();
+        }
         findIconView();
 
         selectedFragment = 0;
         HomeFragment homeFragment = new HomeFragment();
         setFragment(homeFragment);
+    }
+
+    private void getProfile() {
+        String uid = sharedPreferences.getString(ProfileFragment.UID, "");
+        BayarTolApi.userApi.getUserProfile(getApplicationContext(),
+                uid, new Api.ApiListener<User>() {
+            @Override
+            public void onApiSuccess(User result, String rawJson) {
+                sharedPreferences = getSharedPreferences(
+                        ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString(ProfileFragment.USERNAME, result.name);
+                editor.putString(ProfileFragment.EMAIL, result.email);
+                editor.putString(ProfileFragment.PHONE_NUMBER, result.phone_number);
+                editor.putString(ProfileFragment.ADDRESS, result.address);
+                editor.apply();
+            }
+
+            @Override
+            public void onApiError(String errorMessage) {
+                getProfile();
+            }
+        });
     }
 
     private void findIconView() {
