@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/full_name"
-            android:textSize="@dimen/f_12sp"/>
+            android:textSize="@dimen/f_16sp"
+            android:inputType="textPersonName"/>
 
         <EditText
             android:id="@+id/profile_email_field"
@@ -27,7 +28,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:textSize="@dimen/f_12sp"/>
+            android:textSize="@dimen/f_16sp"/>
 
         <EditText
             android:id="@+id/profile_phone_number_field"
@@ -35,14 +36,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/phone"
             android:inputType="phone"
-            android:textSize="@dimen/f_12sp"/>
+            android:textSize="@dimen/f_16sp"/>
 
         <EditText
             android:id="@+id/profile_address_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/address"
-            android:textSize="@dimen/f_12sp"/>
+            android:imeOptions="actionDone"
+            android:textSize="@dimen/f_16sp"/>
     </LinearLayout>
     <Button
         android:id="@+id/btn_submit_profile"
@@ -52,7 +54,13 @@
         android:layout_marginStart="@dimen/_10dp"
         android:layout_marginRight="@dimen/_10dp"
         android:layout_marginEnd="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
         android:text="@string/save"
         android:background="@color/colorPrimary"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white" />
+    <ProgressBar
+        android:id="@+id/edit_profile_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
 </LinearLayout>

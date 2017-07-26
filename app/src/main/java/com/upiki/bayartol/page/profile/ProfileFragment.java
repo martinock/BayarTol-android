@@ -54,10 +54,14 @@ public class ProfileFragment extends Fragment {
         mAddress = (TextView) view.findViewById(R.id.address);
         progressBar = (ProgressBar) view.findViewById(R.id.profile_progress_bar);
 
-        getProfile();
-
         // Inflate the layout for this fragment
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfile();
     }
 
     @Override

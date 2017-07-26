@@ -2,18 +2,20 @@ package com.upiki.bayartol.page.profile;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.User;
+import com.upiki.bayartol.api.ApiClass.MessageResponse;
 import com.upiki.bayartol.api.BayarTolApi;
 
 public class EditProfileActivity extends AppCompatActivity {
@@ -23,6 +25,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mAddressField;
     private EditText mPhoneNumberField;
     private Button btnSubmit;
+    private ProgressBar progressBar;
     private SharedPreferences sp;
 
     @Override
@@ -35,6 +38,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
+        progressBar = (ProgressBar) findViewById(R.id.edit_profile_progress_bar);
         sp = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
         initEditTextsValue();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
@@ -53,6 +57,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void submitEditProfile() {
+        disableView();
         boolean isValid = true;
 
         if (TextUtils.isEmpty(mNameField.getText().toString())) {
@@ -76,36 +81,65 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            BayarTolApi.userApi.postRegisterUser(getApplicationContext(),
-                    mEmailField.getText().toString(),
-                    "123456",
-                    mNameField.getText().toString(),
-                    mPhoneNumberField.getText().toString(),
-                    mAddressField.getText().toString(),
-                    new Api.ApiListener<User>() {
+            final String uid = sp.getString(ProfileFragment.UID, "");
+            final String email = mEmailField.getText().toString();
+            final String name = mNameField.getText().toString();
+            final String phone = mPhoneNumberField.getText().toString();
+            final String address = mAddressField.getText().toString();
+            BayarTolApi.userApi.postEditProfile(
+                    getApplicationContext(), uid, email, name, phone, address,
+                    new Api.ApiListener<MessageResponse>() {
                         @Override
-                        public void onApiSuccess(User result, String rawJson) {
-                            SharedPreferences sharedPreferences
-                                    = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString(ProfileFragment.UID, result.uid);
-                            editor.apply();
+                        public void onApiSuccess(MessageResponse result, String rawJson) {
                             Toast.makeText(getApplicationContext(),
-                                    "Berhasil mengubah profil",
-                                    Toast.LENGTH_SHORT)
-                                    .show();
+                                    "Profil berhasil diubah",
+                                    Toast.LENGTH_SHORT).show();
+                            sp.edit().putString(ProfileFragment.UID, uid).apply();
+                            sp.edit().putString(ProfileFragment.USERNAME, name).apply();
+                            sp.edit().putString(ProfileFragment.EMAIL, email).apply();
+                            sp.edit().putString(ProfileFragment.PHONE_NUMBER, phone).apply();
+                            sp.edit().putString(ProfileFragment.ADDRESS, address).apply();
+                            finish();
                         }
 
                         @Override
                         public void onApiError(String errorMessage) {
-                            Toast.makeText(
-                                    getApplicationContext(),
-                                    "Gagal melakukan perubahan",
-                                    Toast.LENGTH_SHORT
-                            ).show();
+                            Toast.makeText(getApplicationContext(),
+                                    "Gagal mengubah profil",
+                                    Toast.LENGTH_SHORT).show();
+                            enableView();
                         }
-                    }
-            );
+                    });
+        } else {
+            enableView();
+        }
+    }
+
+    private void disableView() {
+        mNameField.setEnabled(false);
+        mEmailField.setEnabled(false);
+        mPhoneNumberField.setEnabled(false);
+        mAddressField.setEnabled(false);
+        btnSubmit.setClickable(false);
+        progressBar.setVisibility(View.VISIBLE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            btnSubmit.setBackgroundColor(getColor(R.color.button_disabled));
+        } else {
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.button_disabled));
+        }
+    }
+
+    private void enableView() {
+        mNameField.setEnabled(true);
+        mEmailField.setEnabled(true);
+        mPhoneNumberField.setEnabled(true);
+        mAddressField.setEnabled(true);
+        btnSubmit.setClickable(true);
+        progressBar.setVisibility(View.GONE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            btnSubmit.setBackgroundColor(getColor(R.color.colorPrimary));
+        } else {
+            btnSubmit.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
         }
     }
 

@@ -106,7 +106,35 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
     }
 
     private void registerAndLogin() {
-
+//        BayarTolApi.userApi.postRegisterUser(getApplicationContext(),
+//                mEmailField.getText().toString(),
+//                mNameField.getText().toString(),
+//                mPhoneNumberField.getText().toString(),
+//                mAddressField.getText().toString(),
+//                new Api.ApiListener<User>() {
+//                    @Override
+//                    public void onApiSuccess(User result, String rawJson) {
+//                        SharedPreferences sharedPreferences
+//                                = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = sharedPreferences.edit();
+//                        editor.putString(ProfileFragment.UID, result.uid);
+//                        editor.apply();
+//                        Toast.makeText(getApplicationContext(),
+//                                "Berhasil mengubah profil",
+//                                Toast.LENGTH_SHORT)
+//                                .show();
+//                    }
+//
+//                    @Override
+//                    public void onApiError(String errorMessage) {
+//                        Toast.makeText(
+//                                getApplicationContext(),
+//                                "Gagal melakukan perubahan",
+//                                Toast.LENGTH_SHORT
+//                        ).show();
+//                    }
+//                }
+//        );
     }
 
     private void login(String uid) {

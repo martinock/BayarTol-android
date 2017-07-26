@@ -131,6 +131,7 @@ public class Api<T> {
 
     public void onApiResponse(JSONObject respond, Type type, ApiListener apiListener) {
         try {
+            Log.d("RESPONSE", respond.toString());
             T res = gson.fromJson(respond.toString(), type);
             apiListener.onApiSuccess(res, respond.toString());
         } catch (Exception exception){
