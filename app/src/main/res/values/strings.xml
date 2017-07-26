@@ -6,6 +6,7 @@
     <string name="organization">Organisasi</string>
     <string name="profile">Profil</string>
     <string name="quit_application_instruction">Tekan sekali lagi untuk keluar</string>
+    <string name="logout">Logout</string>
     <string name="dummy_string">Upiki</string>
 
     <!--Login Register-->

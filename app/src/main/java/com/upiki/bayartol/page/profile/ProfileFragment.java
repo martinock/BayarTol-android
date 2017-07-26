@@ -2,11 +2,11 @@ package com.upiki.bayartol.page.profile;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.page.login.LoginAndRegisterActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +36,8 @@ public class ProfileFragment extends Fragment {
     public EditText mAddressField;
     public EditText mPhoneNumberField;
     public Button mSubmit;
+
+    private TextView tvLogout;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -54,6 +57,13 @@ public class ProfileFragment extends Fragment {
         mAddressField = (EditText) view.findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) view.findViewById(R.id.profile_phone_number_field);
         mSubmit = (Button) view.findViewById(R.id.save_button);
+        tvLogout = (TextView) view.findViewById(R.id.tv_logout);
+        tvLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logout();
+            }
+        });
 
         mSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +76,17 @@ public class ProfileFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void logout() {
+        SharedPreferences sharedPreferences
+                = getActivity()
+                .getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear().apply();
+        Intent intent = new Intent(getActivity(), LoginAndRegisterActivity.class);
+        startActivity(intent);
+        getActivity().finish();
     }
 
     private void saveProfile() {
@@ -101,12 +122,16 @@ public class ProfileFragment extends Fragment {
                     new Api.ApiListener<User>() {
                         @Override
                         public void onApiSuccess(User result, String rawJson) {
-                            SharedPreferences sharedPreferences = getActivity().getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
+                            SharedPreferences sharedPreferences
+                                    = getActivity()
+                                    .getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
                             editor.putString(UID, result.uid);
                             editor.apply();
-                            Log.d(UID, result.uid);
-                            Toast.makeText(getActivity(), "Berhasil melakukan registrasi", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(),
+                                    "Berhasil melakukan registrasi",
+                                    Toast.LENGTH_SHORT)
+                                    .show();
                         }
 
                         @Override
@@ -128,6 +153,8 @@ public class ProfileFragment extends Fragment {
                 mEmailField.append(result.email);
                 mPhoneNumberField.append(result.phone_number);
                 mAddressField.append(result.address);
+                mUserName.setText(result.name);
+                mUserEmail.setText(result.email);
             }
 
             @Override
@@ -136,5 +163,4 @@ public class ProfileFragment extends Fragment {
             }
         });
     }
-
 }
