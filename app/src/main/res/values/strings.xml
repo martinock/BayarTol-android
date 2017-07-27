@@ -11,6 +11,8 @@
     <string name="yes">Ya</string>
     <string name="no">Tidak</string>
     <string name="cancel">Batal</string>
+    <string name="error">Error</string>
+    <string name="reload">Refresh</string>
 
     <!--Login Register-->
     <string name="login_or_register">Masuk/Daftar</string>

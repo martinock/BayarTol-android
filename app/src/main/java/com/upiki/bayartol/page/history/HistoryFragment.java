@@ -21,6 +21,7 @@ import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.model.Payment;
 import com.upiki.bayartol.page.profile.ProfileFragment;
+import com.upiki.bayartol.util.ProgressView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -39,11 +40,13 @@ public class HistoryFragment extends Fragment {
     private static final String LASTMONTH = "1 bulan yang lalu";
     private static final String ALL = "> 1 bulan yang lalu";
 
-    private List<Payment> paymentList = new ArrayList<>();
     private RecyclerView recyclerView;
     private PaymentAdapter mAdapter;
     private Spinner mSpinnerPaymentTime;
-    private String[] dateList;
+
+    ProgressView mLoading;
+
+    private List<Payment> paymentList = new ArrayList<>();
     private String start_date;
     private String end_date;
     private int minusDay = 0;
@@ -71,9 +74,8 @@ public class HistoryFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
 
+        mLoading = (ProgressView) view.findViewById(R.id.progress_view);
         mSpinnerPaymentTime = (Spinner) view.findViewById(R.id.spinner_trip_time);
-
-        dateList = getResources().getStringArray(R.array.history_trip_times);
 
         calendar = Calendar.getInstance();
         simpleDateFormat = new SimpleDateFormat(stringFormat);
@@ -124,7 +126,7 @@ public class HistoryFragment extends Fragment {
     };
 
     //TODO : get the payment data from API.
-    private void getPaymentData(int minusDay, int minusMonth) {
+    private void getPaymentData(final int minusDay, final int minusMonth) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
         String uid = sharedPreferences.getString(ProfileFragment.UID, "");
 
@@ -148,16 +150,25 @@ public class HistoryFragment extends Fragment {
         if (TextUtils.isEmpty(uid)) {
             // do nothing because no user ID.
         } else {
-            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, "", new Api.ApiListener<List<Payment>>() {
+            mLoading.startProgressBar();
+            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, new Api.ApiListener<List<Payment>>() {
                 @Override
                 public void onApiSuccess(List<Payment> result, String rawJson) {
+                    mLoading.stopProgressBar();
                     paymentList.addAll(result);
                     mAdapter.notifyDataSetChanged();
+                    mLoading.setVisibility(View.GONE);
                 }
 
                 @Override
                 public void onApiError(String errorMessage) {
-
+                    mLoading.stopShowError(errorMessage, true);
+                    mLoading.setRefresh(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getPaymentData(minusDay, minusMonth);
+                        }
+                    });
                 }
             });
         }
