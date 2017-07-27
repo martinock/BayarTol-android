@@ -13,6 +13,6 @@ import java.util.List;
 public class TransactionApi extends Api {
 
     public void getHistoryPayment(Context context, String uid, String start_date, String end_date, ApiListener<List<Payment>> apiListener) {
-        callGetApi(context, String.format(ApiConstanta.GET_HISTORY, uid, start_date, end_date), null, Payment.class, apiListener);
+        callGetApi(context, String.format(ApiConstanta.GET_HISTORY_BY_DATE, uid, start_date, end_date), null, Payment.class, apiListener);
     }
 }
