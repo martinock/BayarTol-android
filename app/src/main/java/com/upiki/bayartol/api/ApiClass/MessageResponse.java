@@ -7,5 +7,6 @@ package com.upiki.bayartol.api.ApiClass;
  */
 
 public class MessageResponse {
+    public String status;
     public String message;
 }
