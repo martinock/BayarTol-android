@@ -65,11 +65,11 @@ public class PaymentAdapter extends
     @Override
     public void onBindViewHolder(PaymentViewHolder holder, int position) {
         Payment payment = paymentList.get(position);
-        holder.tvPaymentLocation.setText(payment.getPaymentLocation());
+        holder.tvPaymentLocation.setText(payment.getToll_name());
         String formatedCost = BayarTolUtil.currencyFormatter(
-                payment.getPaymentCost());
+                payment.getCost());
         holder.tvPaymentCost.setText(formatedCost);
-        holder.tvPaymentDate.setText(payment.getPaymentDate());
+        holder.tvPaymentDate.setText(payment.getDatetime());
         holder.tvBusinessTrip.setVisibility(
                 payment.isBusinessTrip()
                         ? View.VISIBLE

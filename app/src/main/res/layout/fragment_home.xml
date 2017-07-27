@@ -29,6 +29,7 @@
             android:layout_height="@dimen/_40dp"
             android:entries="@array/home_payment_methods"
             android:prompt="@string/home_payment_method_prompt"/>
+
     </LinearLayout>
 
     <ProgressBar

@@ -7,9 +7,11 @@ package com.upiki.bayartol.model;
  */
 
 public class Payment {
-    private String paymentLocation;
-    private long paymentCost;
-    private String paymentDate;
+
+    private String toll_name;
+    private Long cost;
+    private String datetime;
+    private String tid;
     private boolean isBusinessTrip;
 
     /**
@@ -21,12 +23,12 @@ public class Payment {
      */
     public Payment(
             String paymentLocation,
-            long paymentCost,
+            Long paymentCost,
             String paymentDate,
             boolean isBusinessTrip) {
-        this.paymentLocation = paymentLocation;
-        this.paymentCost = paymentCost;
-        this.paymentDate = paymentDate;
+        this.toll_name = paymentLocation;
+        this.cost = paymentCost;
+        this.datetime = paymentDate;
         this.isBusinessTrip = isBusinessTrip;
     }
 
@@ -34,24 +36,24 @@ public class Payment {
      * A method to get the payment location.
      * @return payment location
      */
-    public String getPaymentLocation() {
-        return paymentLocation;
+    public String getToll_name() {
+        return toll_name;
     }
 
     /**
      * A method to get the payment cost.
      * @return payment cost
      */
-    public long getPaymentCost() {
-        return paymentCost;
+    public Long getCost() {
+        return cost;
     }
 
     /**
      * A method to get the payment date.
      * @return payment date
      */
-    public String getPaymentDate() {
-        return paymentDate;
+    public String getDatetime() {
+        return datetime;
     }
 
     /**
@@ -62,13 +64,17 @@ public class Payment {
         return isBusinessTrip;
     }
 
+    public String getTid() {
+        return tid;
+    }
+
     /**
      * A method to set the payment location with
      * value gotten from API.
      * @param paymentLocation the payment location
      */
-    public void setPaymentLocation(String paymentLocation) {
-        this.paymentLocation = paymentLocation;
+    public void setToll_name(String paymentLocation) {
+        this.toll_name = paymentLocation;
     }
 
     /**
@@ -76,8 +82,8 @@ public class Payment {
      * gotten from API.
      * @param paymentCost the payment cost
      */
-    public void setPaymentCost(long paymentCost) {
-        this.paymentCost = paymentCost;
+    public void setCost(Long paymentCost) {
+        this.cost = paymentCost;
     }
 
     /**
@@ -85,8 +91,8 @@ public class Payment {
      * gotten from API.
      * @param paymentDate the payment date
      */
-    public void setPaymentDate(String paymentDate) {
-        this.paymentDate = paymentDate;
+    public void setDatetime(String paymentDate) {
+        this.datetime = paymentDate;
     }
 
     /**
@@ -97,4 +103,9 @@ public class Payment {
     public void setBusinessTrip(boolean isBusinessTrip) {
         this.isBusinessTrip = isBusinessTrip;
     }
+
+    public void setTid(String tid) {
+        this.tid = tid;
+    }
+
 }
