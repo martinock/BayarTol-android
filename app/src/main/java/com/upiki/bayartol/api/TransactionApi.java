@@ -13,8 +13,8 @@ import java.util.List;
 
 public class TransactionApi extends Api {
 
-    public void getHistoryPayment(Context context, String uid, String start_date, String end_date, ApiListener<List<Payment>> apiListener) {
-        callGetArrayApi(context, String.format(ApiConstanta.GET_HISTORY_BY_DATE, uid, start_date, end_date), null, new TypeToken<List<Payment>>() {}.getType(), apiListener);
+    public void getHistoryPayment(Context context, String uid, String start_date, String end_date, int current, int limit, ApiListener<List<Payment>> apiListener) {
+        callGetArrayApi(context, String.format(ApiConstanta.GET_HISTORY_BY_DATE, uid, start_date, end_date, current, limit), null, new TypeToken<List<Payment>>() {}.getType(), apiListener);
     }
 
 }

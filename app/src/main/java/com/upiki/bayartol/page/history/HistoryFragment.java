@@ -55,6 +55,12 @@ public class HistoryFragment extends Fragment {
     private String stringFormat = "yyyy-MM-dd";
     private SimpleDateFormat simpleDateFormat;
 
+    private LinearLayoutManager layoutManager;
+    private boolean loading;
+    private int current = 0;
+    private int limit = 10;
+    private int visibleItemCount, totalItemCount, firstVisibleItemPos;
+
     public HistoryFragment() {
         // Required empty public constructor
     }
@@ -65,13 +71,15 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history, container, false);
 
+        loading = true;
+
         recyclerView =
                 (RecyclerView) view.findViewById(R.id.rv_transaction_history);
         mAdapter = new PaymentAdapter(paymentList);
-        RecyclerView.LayoutManager layoutManager =
-                new LinearLayoutManager(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.addOnScrollListener(onScrollListener);
         recyclerView.setAdapter(mAdapter);
 
         mLoading = (ProgressView) view.findViewById(R.id.progress_view);
@@ -125,6 +133,20 @@ public class HistoryFragment extends Fragment {
         }
     };
 
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            visibleItemCount = layoutManager.getChildCount();
+            totalItemCount = layoutManager.getItemCount();
+            firstVisibleItemPos = layoutManager.findFirstVisibleItemPosition();
+
+            if (loading && (visibleItemCount + firstVisibleItemPos) >= totalItemCount) {
+                loading = false;
+                getPaymentData(minusDay, minusMonth);
+            }
+        }
+    };
+
     //TODO : get the payment data from API.
     private void getPaymentData(final int minusDay, final int minusMonth) {
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
@@ -151,13 +173,20 @@ public class HistoryFragment extends Fragment {
             // do nothing because no user ID.
         } else {
             mLoading.startProgressBar();
-            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, new Api.ApiListener<List<Payment>>() {
+            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, current, limit, new Api.ApiListener<List<Payment>>() {
                 @Override
                 public void onApiSuccess(List<Payment> result, String rawJson) {
-                    paymentList.clear();
-                    paymentList.addAll(result);
-                    mAdapter.notifyDataSetChanged();
-                    mLoading.stopProgressBar();
+                    if (result.isEmpty()) {
+                        recyclerView.removeOnScrollListener(onScrollListener);
+                        mAdapter.stopLoadMore();
+                    } else {
+                        paymentList.clear();
+                        paymentList.addAll(result);
+                        mAdapter.notifyDataSetChanged();
+                        mLoading.stopProgressBar();
+                        current += limit;
+                        loading = true;
+                    }
                 }
 
                 @Override
@@ -172,63 +201,5 @@ public class HistoryFragment extends Fragment {
                 }
             });
         }
-
-//        Payment payment = new Payment(
-//                "Padalarang - Cikampek",
-//                35000,
-//                "1 Juli 2017 (13.50)",
-//                false);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                650,
-//                "1 Juli 2017 (18.50)",
-//                true);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                650100,
-//                "1 Juli 2017 (18.51)",
-//                false);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek",
-//                6502000,
-//                "1 Juli 2017 (18.52)",
-//                true);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                65030000,
-//                "1 Juli 2017 (18.53)",
-//                false);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                650400000,
-//                "1 Juli 2017 (18.54)",
-//                false);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                6505,
-//                "1 Juli 2017 (18.55)",
-//                false);
-//        paymentList.add(payment);
-//
-//        payment = new Payment(
-//                "Cikampek - Padalarang",
-//                6506,
-//                "1 Juli 2017 (18.56)",
-//                false);
-//        paymentList.add(payment);
-
-
     }
 }

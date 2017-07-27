@@ -9,7 +9,8 @@ public class ApiConstanta {
     public static String EDIT = API + "/edit";
     public static String GET_PROFILE = API + "/profile?uid=%1s";
     public static String GET_HISTORY = API + "/history";
-    public static String GET_HISTORY_BY_DATE = API + "/history?uid=%1s&start_date=%2s&end_date=%3s";
+    public static String GET_HISTORY_BY_DATE = API
+        + "/history?uid=%1s&start_date=%2s&end_date=%3s&current=%4s&limit=%5s";
     public static String TRANSACTION = API + "/transaction";
 
 

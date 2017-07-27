@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.model.Payment;
 import com.upiki.bayartol.util.BayarTolUtil;
+import com.upiki.bayartol.util.LoadingViewHolder;
 
 import java.util.List;
 
@@ -20,7 +21,13 @@ import java.util.List;
 
 public class PaymentAdapter extends
         RecyclerView.Adapter<
-                PaymentAdapter.PaymentViewHolder> {
+            RecyclerView.ViewHolder> {
+
+    private static final int PAYMENT = 0;
+    private static final int SEE_MORE = 1;
+
+    private boolean stop;
+
     private List<Payment> paymentList;
 
     public class PaymentViewHolder
@@ -51,33 +58,58 @@ public class PaymentAdapter extends
         }
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position == paymentList.size() + 1) {
+            return SEE_MORE;
+        } else {
+            return PAYMENT;
+        }
+    }
+
+    public void stopLoadMore() {
+        stop = true;
+        notifyItemRemoved(paymentList.size());
+    }
+
     public PaymentAdapter(List<Payment> paymentList) {
         this.paymentList = paymentList;
+        stop = false;
     }
 
     @Override
-    public PaymentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_payment_history, parent, false);
-        return new PaymentViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if (viewType == SEE_MORE) {
+            return new PaymentViewHolder(inflater.inflate(R.layout.item_payment_history, parent, false));
+        } else if (viewType == SEE_MORE) {
+            return new LoadingViewHolder(inflater.inflate(R.layout.row_loading, parent, false));
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public void onBindViewHolder(PaymentViewHolder holder, int position) {
-        Payment payment = paymentList.get(position);
-        holder.tvPaymentLocation.setText(payment.getToll_name());
-        String formatedCost = BayarTolUtil.currencyFormatter(
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof PaymentViewHolder) {
+            PaymentViewHolder paymentViewHolder = (PaymentViewHolder) holder;
+            Payment payment = paymentList.get(position);
+            paymentViewHolder.tvPaymentLocation.setText(payment.getToll_name());
+            String formatedCost = BayarTolUtil.currencyFormatter(
                 payment.getCost());
-        holder.tvPaymentCost.setText(formatedCost);
-        holder.tvPaymentDate.setText(payment.getDatetime());
-        holder.tvBusinessTrip.setVisibility(
+            paymentViewHolder.tvPaymentCost.setText(formatedCost);
+            paymentViewHolder.tvPaymentDate.setText(payment.getDatetime());
+            paymentViewHolder.tvBusinessTrip.setVisibility(
                 payment.isBusinessTrip()
-                        ? View.VISIBLE
-                        : View.GONE);
+                    ? View.VISIBLE
+                    : View.GONE);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return paymentList.size();
+        return paymentList != null?
+            paymentList.size() + (stop? 1 : 0) :
+            0;
     }
 }
