@@ -52,7 +52,7 @@ public class HistoryFragment extends Fragment {
     private int minusDay = 0;
     private int minusMonth = 0;
     private Calendar calendar;
-    private String stringFormat = "yyyy-MM-dd hh:mm:ss";
+    private String stringFormat = "yyyy-MM-dd";
     private SimpleDateFormat simpleDateFormat;
 
     public HistoryFragment() {
@@ -137,15 +137,15 @@ public class HistoryFragment extends Fragment {
             calendar.add(Calendar.DAY_OF_MONTH, minusDay);
             start_date = simpleDateFormat.format(calendar.getTime());
         } else if (minusDay == 0 && minusMonth < 0) {
-            calendar.add(Calendar.DAY_OF_MONTH, minusMonth);
+            calendar.add(Calendar.MONTH, minusMonth);
             start_date = simpleDateFormat.format(calendar.getTime());
         } else {
-            start_date = "";
+            start_date = null;
         }
 
         // today
         calendar.setTime(new Date());
-        end_date = (minusDay < 0 && minusMonth < 0)? "" : simpleDateFormat.format(calendar.getTime());
+        end_date = (minusDay < 0 && minusMonth < 0)? null : simpleDateFormat.format(calendar.getTime());
         
         if (TextUtils.isEmpty(uid)) {
             // do nothing because no user ID.
@@ -154,10 +154,10 @@ public class HistoryFragment extends Fragment {
             BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, new Api.ApiListener<List<Payment>>() {
                 @Override
                 public void onApiSuccess(List<Payment> result, String rawJson) {
-                    mLoading.stopProgressBar();
+                    paymentList.clear();
                     paymentList.addAll(result);
                     mAdapter.notifyDataSetChanged();
-                    mLoading.setVisibility(View.GONE);
+                    mLoading.stopProgressBar();
                 }
 
                 @Override
@@ -172,6 +172,7 @@ public class HistoryFragment extends Fragment {
                 }
             });
         }
+
 //        Payment payment = new Payment(
 //                "Padalarang - Cikampek",
 //                35000,
