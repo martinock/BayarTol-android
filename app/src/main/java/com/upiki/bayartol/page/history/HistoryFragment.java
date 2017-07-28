@@ -19,6 +19,7 @@ import com.upiki.bayartol.Adapter.PaymentAdapter;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.TransactionApi;
 import com.upiki.bayartol.model.Payment;
 import com.upiki.bayartol.page.profile.ProfileFragment;
 import com.upiki.bayartol.util.ProgressView;
@@ -173,15 +174,15 @@ public class HistoryFragment extends Fragment {
             // do nothing because no user ID.
         } else {
             mLoading.startProgressBar();
-            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, current, limit, new Api.ApiListener<List<Payment>>() {
+            BayarTolApi.transactionApi.getHistoryPayment(getActivity(), uid, start_date, end_date, current, limit, new Api.ApiListener<TransactionApi.DataTransaction>() {
                 @Override
-                public void onApiSuccess(List<Payment> result, String rawJson) {
-                    if (result.isEmpty()) {
+                public void onApiSuccess(TransactionApi.DataTransaction result, String rawJson) {
+                    if (result.data.isEmpty()) {
                         recyclerView.removeOnScrollListener(onScrollListener);
                         mAdapter.stopLoadMore();
                     } else {
                         paymentList.clear();
-                        paymentList.addAll(result);
+                        paymentList.addAll(result.data);
                         mAdapter.notifyDataSetChanged();
                         mLoading.stopProgressBar();
                         current += limit;

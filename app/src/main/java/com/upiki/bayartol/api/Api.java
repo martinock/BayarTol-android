@@ -11,6 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
+import com.upiki.bayartol.api.ApiClass.DataResponse;
 import com.upiki.bayartol.util.VolleySingleton;
 
 import org.json.JSONArray;
@@ -160,7 +161,7 @@ public class Api<T> {
     public void onApiResponse(JSONObject respond, Type type, ApiListener apiListener) {
         try {
             Log.d("RESPONSE", respond.toString());
-            T res = gson.fromJson(respond.toString(), type);
+            DataResponse res = gson.fromJson(respond.toString(), type);
             apiListener.onApiSuccess(res, respond.toString());
         } catch (Exception exception){
             apiListener.onApiError(exception.getMessage());
