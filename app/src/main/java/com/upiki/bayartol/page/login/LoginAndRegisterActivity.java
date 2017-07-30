@@ -165,10 +165,4 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-//
-//    public static void startThisActivityForResult(Activity activity, String organization, int code) {
-//        startActivityForResult(new Intent(activity, LoginAndRegisterActivity.class)
-//            .putExtra(ORGANIZATION, organization), code);
-//    }
-
 }
