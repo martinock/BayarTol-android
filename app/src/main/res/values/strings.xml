@@ -19,6 +19,9 @@
     <string name="login_register_success_message">Email Anda telah didaftarkan! Selamat mengemudi!</string>
     <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar dari akun Anda?</string>
 
+    <!--Organization Register-->
+    <string name="no_organization_label">Kamu belum mendaftarkan sebagai organisasi. Apakah anda ingin <b><font color="#B71C1C">mendaftar?</font></b></string>
+
     <!--Home-->
     <string name="home_payment_method">Metode Pembayaran</string>
     <string name="home_payment_method_prompt">Pilih metode pembayaran</string>

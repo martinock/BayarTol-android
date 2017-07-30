@@ -8,6 +8,32 @@
     android:background="@color/light_grey"
     android:paddingBottom="@dimen/_70dp">
 
+    <com.upiki.bayartol.util.ProgressView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/no_organization_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/no_organization_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/f_20sp"
+            android:text="@string/no_organization_label"
+            android:textAlignment="center"
+            android:lineSpacingExtra="@dimen/_2dp"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -27,6 +53,7 @@
                 app:columnCount="2">
 
                 <TextView
+                    android:id="@+id/organization_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     tools:text="NAMA ORGANISASI"
@@ -80,6 +107,7 @@
 
 
             <LinearLayout
+                android:id="@+id/goto_member_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -134,6 +162,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/goto_transaction_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

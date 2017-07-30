@@ -3,6 +3,7 @@ package com.upiki.bayartol.api;
 import android.content.Context;
 
 import com.upiki.bayartol.api.ApiClass.DataResponse;
+import com.upiki.bayartol.api.ApiClass.Organization;
 import com.upiki.bayartol.api.ApiClass.User;
 
 import java.util.HashMap;
@@ -24,5 +25,11 @@ public class OrganizationApi extends Api {
 
     }
 
+    public void getOrganizationData(Context context, String uid, ApiListener<DataOrganization> apiListener) {
+        callGetApi(context, ApiConstanta.GET_ORGANIZATION_URL, null, DataOrganization.class, apiListener );
+    }
+
+//    public void postRegisterOrganization(Context context, String , ApiListener<>)
     public class DataMember extends DataResponse<List<User>> {}
+    public class DataOrganization extends DataResponse<Organization> {}
 }

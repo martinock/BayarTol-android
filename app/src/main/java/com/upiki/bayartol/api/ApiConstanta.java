@@ -15,6 +15,8 @@ public class ApiConstanta {
 
     // Organization
     public static String ADD_MEMBER_URL = API_URL + "/addMember";
+    public static String GET_ORGANIZATION_URL = API_URL + "/organization?uid=%1s";
+    public static String POST_REGISTER_ORGANIZATION = API_URL + "/organization";
 
 
 }
