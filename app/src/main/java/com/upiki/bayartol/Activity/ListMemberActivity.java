@@ -1,7 +1,9 @@
 package com.upiki.bayartol.Activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -10,13 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.upiki.bayartol.R;
+import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.ApiClass.User;
+import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.OrganizationApi;
+import com.upiki.bayartol.page.profile.ProfileFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,9 +69,12 @@ public class ListMemberActivity extends AppCompatActivity {
         private final int ADD = 1;
 
         private List<User> listMember;
+        private boolean add;
+
 
         public MemberAdapter(List<User> listMember) {
             this.listMember = listMember;
+            add = true;
         }
 
         @Override
@@ -98,7 +109,7 @@ public class ListMemberActivity extends AppCompatActivity {
                 MemberHolder memberHolder = (MemberHolder) holder;
                 if (listMember.size() > 0) {
                     memberHolder.mName.setVisibility(View.VISIBLE);
-                    memberHolder.mPhoneNumber.setVisibility(View.VISIBLE);
+                    memberHolder.mPhoneNumber.setVisibility(View.GONE);
                     memberHolder.mName.setText(listMember.get(position).name);
                     memberHolder.mPhoneNumber.setText(listMember.get(position).phone_number);
                 } else {
@@ -107,16 +118,19 @@ public class ListMemberActivity extends AppCompatActivity {
                 }
             } else if (holder instanceof AddHolder) {
                 final AddHolder addHolder = (AddHolder) holder;
-                addHolder.mAddLabel.setVisibility(View.VISIBLE);
-                addHolder.mAddButton.setVisibility(View.VISIBLE);
                 addHolder.mFieldContainer.setVisibility(View.GONE);
-                addHolder.mAddContainer.setOnClickListener(new View.OnClickListener() {
+                addHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        addHolder.mAddLabel.setVisibility(View.GONE);
-                        addHolder.mAddButton.setVisibility(View.GONE);
-                        addHolder.mFieldContainer.setVisibility(View.VISIBLE);
-
+                        if (add) {
+                            addHolder.mFieldContainer.setVisibility(View.VISIBLE);
+                            addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_remove_circle", "drawable", getPackageName()));
+                            add = false;
+                        } else {
+                            addHolder.mFieldContainer.setVisibility(View.GONE);
+                            addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_add", "drawable", getPackageName()));
+                            add = true;
+                        }
                     }
                 });
                 if (addHolder.mAddSubmit.getVisibility() == View.VISIBLE) {
@@ -124,6 +138,21 @@ public class ListMemberActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // post add new member
+                            SharedPreferences sharedPreferences = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+                            String uid = sharedPreferences.getString(ProfileFragment.UID, "");
+                            BayarTolApi.organizationApi.postAddMember(getApplicationContext(), uid, addHolder.mEmailField.getText().toString(), new Api.ApiListener<OrganizationApi.DataMember>() {
+                                @Override
+                                public void onApiSuccess(OrganizationApi.DataMember result, String rawJson) {
+                                    listMember.clear();
+                                    listMember.addAll(result.data);
+                                    notifyDataSetChanged();
+                                }
+
+                                @Override
+                                public void onApiError(String errorMessage) {
+                                    Toast.makeText(ListMemberActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
                     });
                 }
@@ -132,18 +161,16 @@ public class ListMemberActivity extends AppCompatActivity {
 
         class AddHolder extends RecyclerView.ViewHolder {
             public ImageView mAddButton;
-            public TextView mAddLabel;
-            public LinearLayout mAddContainer;
             public LinearLayout mFieldContainer;
             public Button mAddSubmit;
+            public EditText mEmailField;
 
             public AddHolder(View itemView) {
                 super(itemView);
                 mAddButton = (ImageView) itemView.findViewById(R.id.add_new_member);
-                mAddLabel = (TextView) itemView.findViewById(R.id.add_new_member_label);
-                mAddContainer = (LinearLayout) itemView.findViewById(R.id.add_container);
                 mFieldContainer = (LinearLayout) itemView.findViewById(R.id.add_field_container);
                 mAddSubmit = (Button) itemView.findViewById(R.id.add_new_member_button);
+                mEmailField = (EditText) itemView.findViewById(R.id.add_email_field);
             }
         }
 

@@ -18,7 +18,6 @@
             android:padding="@dimen/_10dp"/>
 
         <TextView
-            android:id="@+id/add_new_member_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/add_member"
@@ -34,27 +33,27 @@
         android:padding="@dimen/_10dp">
 
         <EditText
-            android:id="@+id/add_username"
+            android:id="@+id/add_email_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="email"
             android:textSize="@dimen/f_12sp"/>
 
-        <EditText
-            android:id="@+id/add_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nomor Hp"
-            android:textSize="@dimen/f_12sp"/>
+        <!--<EditText-->
+        <!--android:id="@+id/add_phone_number"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:hint="Nomor Hp"-->
+        <!--android:textSize="@dimen/f_12sp"/>-->
 
         <Button
             android:id="@+id/add_new_member_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TAMBAH ANGGOTA"
-            android:background="@color/colorPrimary"
             android:layout_marginTop="@dimen/_10dp"
-            android:textSize="@dimen/f_16sp"
-            android:textColor="@color/white"/>
+            android:background="@color/colorPrimary"
+            android:text="TAMBAH ANGGOTA"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f_16sp"/>
     </LinearLayout>
 </LinearLayout>
