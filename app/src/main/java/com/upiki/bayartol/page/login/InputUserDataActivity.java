@@ -14,11 +14,12 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.UserApi;
 
 import static com.upiki.bayartol.page.profile.ProfileFragment.ADDRESS;
 import static com.upiki.bayartol.page.profile.ProfileFragment.EMAIL;
@@ -87,24 +88,24 @@ public class InputUserDataActivity extends AppCompatActivity {
             final String phone = mPhoneNumberField.getText().toString();
             final String address = mAddressField.getText().toString();
             BayarTolApi.userApi.postRegisterUser(
-                    getApplicationContext(), email, name, phone, address,
-                    new Api.ApiListener<User>() {
+                    getApplicationContext(), email, name, "dummypass", phone, address,
+                    new Api.ApiListener<UserApi.DataUser>() {
                         @Override
-                        public void onApiSuccess(User result, String rawJson) {
+                        public void onApiSuccess(UserApi.DataUser result, String rawJson) {
                             Toast.makeText(getApplicationContext(),
                                     "Profil berhasil dibuat",
                                     Toast.LENGTH_SHORT).show();
-                            sp.edit().putString(UID, result.uid).apply();
-                            sp.edit().putString(USERNAME, result.name).apply();
-                            sp.edit().putString(EMAIL, result.email).apply();
-                            sp.edit().putString(PHONE_NUMBER, result.phone_number).apply();
-                            sp.edit().putString(ADDRESS, result.address).apply();
+                            sp.edit().putString(UID, result.data.uid).apply();
+                            sp.edit().putString(USERNAME, result.data.name).apply();
+                            sp.edit().putString(EMAIL, result.data.email).apply();
+                            sp.edit().putString(PHONE_NUMBER, result.data.phone_number).apply();
+                            sp.edit().putString(ADDRESS, result.data.address).apply();
                             toHomeActivity();
                             finish();
                         }
 
                         @Override
-                        public void onApiError(String errorMessage) {
+                        public void onApiError(VolleyError error) {
                             Toast.makeText(getApplicationContext(),
                                     "Gagal membuat profil",
                                     Toast.LENGTH_SHORT).show();

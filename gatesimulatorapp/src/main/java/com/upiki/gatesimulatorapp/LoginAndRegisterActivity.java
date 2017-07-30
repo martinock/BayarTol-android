@@ -12,8 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.upiki.gatesimulatorapp.api.Api;
-import com.upiki.gatesimulatorapp.api.ApiClass.User;
 import com.upiki.gatesimulatorapp.api.BayarTolApi;
+import com.upiki.gatesimulatorapp.api.UserApi;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -72,10 +72,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_email_format_invalid));
             return;
         }
-        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<User>() {
+        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<UserApi.DataUser>() {
             @Override
-            public void onApiSuccess(User result, String rawJson) {
-                login(result.uid);
+            public void onApiSuccess(UserApi.DataUser result, String rawJson) {
+                login(result.data.uid);
             }
 
             @Override

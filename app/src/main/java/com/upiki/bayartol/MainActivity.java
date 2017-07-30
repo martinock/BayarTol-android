@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.api.UserApi;
@@ -60,11 +61,6 @@ public class MainActivity extends AppCompatActivity {
         if (!sharedPreferences.contains(ProfileFragment.USERNAME)) {
             getProfile();
         }
-        findIconView();
-
-        selectedFragment = 0;
-        HomeFragment homeFragment = new HomeFragment();
-        setFragment(homeFragment);
     }
 
     private void getProfile() {
@@ -81,10 +77,15 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(ProfileFragment.PHONE_NUMBER, result.data.phone_number);
                 editor.putString(ProfileFragment.ADDRESS, result.data.address);
                 editor.apply();
+                findIconView();
+
+                selectedFragment = 0;
+                HomeFragment homeFragment = new HomeFragment();
+                setFragment(homeFragment);
             }
 
             @Override
-            public void onApiError(String errorMessage) {
+            public void onApiError(VolleyError error) {
                 getProfile();
             }
         });

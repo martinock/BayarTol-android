@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.MessageResponse;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.api.UserApi;
 
@@ -104,7 +104,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onApiError(String errorMessage) {
+                        public void onApiError(VolleyError error) {
                             Toast.makeText(getApplicationContext(),
                                     "Gagal mengubah profil",
                                     Toast.LENGTH_SHORT).show();

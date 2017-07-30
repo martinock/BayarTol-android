@@ -31,7 +31,7 @@ public class Api<T> {
     public interface ApiListener<T> {
         public void onApiSuccess(T result, String rawJson);
 
-        public void onApiError(String errorMessage);
+        public void onApiError(VolleyError errorMessage);
     }
 
     public static Gson gson = new Gson();
@@ -164,7 +164,7 @@ public class Api<T> {
             DataResponse res = gson.fromJson(respond.toString(), type);
             apiListener.onApiSuccess(res, respond.toString());
         } catch (Exception exception){
-            apiListener.onApiError(exception.getMessage());
+            apiListener.onApiError(new VolleyError(exception.getMessage()));
         }
     }
 
@@ -174,13 +174,13 @@ public class Api<T> {
             T res = gson.fromJson(respond.toString(), type);
             apiListener.onApiSuccess(res, respond.toString());
         } catch (Exception exception) {
-            apiListener.onApiError(exception.getMessage());
+            apiListener.onApiError(new VolleyError(exception.getMessage()));
         }
     }
 
 
     public void onApiError(VolleyError error, ApiListener apiListener) {
-        apiListener.onApiError(error.toString());
+        apiListener.onApiError(error);
     }
 
 }
