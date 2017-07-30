@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.UserApi;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,10 +76,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_email_format_invalid));
             return;
         }
-        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<User>() {
+        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<UserApi.DataUser>() {
             @Override
-            public void onApiSuccess(User result, String rawJson) {
-                login(result.uid);
+            public void onApiSuccess(UserApi.DataUser result, String rawJson) {
+                login(result.data.uid);
             }
 
             @Override
@@ -111,9 +111,9 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
 //                mNameField.getText().toString(),
 //                mPhoneNumberField.getText().toString(),
 //                mAddressField.getText().toString(),
-//                new Api.ApiListener<User>() {
+//                new Api.ApiListener<UserApi.DataUser>() {
 //                    @Override
-//                    public void onApiSuccess(User result, String rawJson) {
+//                    public void onApiSuccess(UserApi.DataUser result, String rawJson) {
 //                        SharedPreferences sharedPreferences
 //                                = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
 //                        SharedPreferences.Editor editor = sharedPreferences.edit();

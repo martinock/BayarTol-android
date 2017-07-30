@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.MessageResponse;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.UserApi;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -88,9 +88,9 @@ public class EditProfileActivity extends AppCompatActivity {
             final String address = mAddressField.getText().toString();
             BayarTolApi.userApi.postEditProfile(
                     getApplicationContext(), uid, email, name, phone, address,
-                    new Api.ApiListener<MessageResponse>() {
+                    new Api.ApiListener<UserApi.DataMsgResponse>() {
                         @Override
-                        public void onApiSuccess(MessageResponse result, String rawJson) {
+                        public void onApiSuccess(UserApi.DataMsgResponse result, String rawJson) {
                             Toast.makeText(getApplicationContext(),
                                     "Profil berhasil diubah",
                                     Toast.LENGTH_SHORT).show();
