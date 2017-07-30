@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 import com.upiki.bayartol.page.login.LoginAndRegisterActivity;
 import com.upiki.bayartol.page.profile.ProfileFragment;
@@ -15,16 +16,20 @@ import com.upiki.bayartol.page.profile.ProfileFragment;
  */
 public class SplashActivity extends AppCompatActivity {
 
+    ImageView mImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        mImage = (ImageView) findViewById(R.id.splashscreen);
+        mImage.setImageResource(getResources().getIdentifier("splashscreen", "drawable", getPackageName()));
         SharedPreferences sp = getSharedPreferences(
                 ProfileFragment.PROFILE,
                 MODE_PRIVATE);
         String uid = sp.getString(ProfileFragment.UID, "");
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
             if (uid.isEmpty()) {
                 Intent intent = new Intent(
                         getApplicationContext(),
