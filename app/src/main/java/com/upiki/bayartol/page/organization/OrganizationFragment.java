@@ -31,6 +31,7 @@ public class OrganizationFragment extends Fragment {
     private LinearLayout mTransaction;
     private TextView mOrganizationName;
     private ProgressView mLoading;
+    private LinearLayout mOrganizationContainer;
 
     public OrganizationFragment() {
         // Required empty public constructor
@@ -48,6 +49,7 @@ public class OrganizationFragment extends Fragment {
         mTransaction = (LinearLayout) view.findViewById(R.id.goto_list_transaction);
         mNoOrganizationContainer = (LinearLayout) view.findViewById(R.id.no_organization_container);
         mNoOrganizationLabel = (TextView) view.findViewById(R.id.no_organization_label);
+        mOrganizationContainer = (LinearLayout) view.findViewById(R.id.organization_container);
         mOrganizationName = (TextView) view.findViewById(R.id.organization_name);
         mLoading = (ProgressView) view.findViewById(R.id.loading);
 
@@ -87,9 +89,11 @@ public class OrganizationFragment extends Fragment {
                 mLoading.stopProgressBar();
                 if (result.data.name.equals(null)) {
                     mNoOrganizationContainer.setVisibility(View.VISIBLE);
+                    mOrganizationContainer.setVisibility(View.GONE);
                 } else {
                     mOrganizationName.setText(result.data.name);
                     mNoOrganizationContainer.setVisibility(View.GONE);
+                    mOrganizationContainer.setVisibility(View.VISIBLE);
                 }
             }
 

@@ -26,7 +26,7 @@ public class OrganizationApi extends Api {
     }
 
     public void getOrganizationData(Context context, String uid, ApiListener<DataOrganization> apiListener) {
-        callGetApi(context, ApiConstanta.GET_ORGANIZATION_URL, null, DataOrganization.class, apiListener );
+        callGetApi(context, String.format(ApiConstanta.GET_ORGANIZATION_URL, uid), null, DataOrganization.class, apiListener );
     }
 
 //    public void postRegisterOrganization(Context context, String , ApiListener<>)
