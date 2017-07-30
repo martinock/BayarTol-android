@@ -1,19 +1,19 @@
-package com.upiki.bayartol.api;
+package com.upiki.gatesimulatorapp.api;
 
 import android.content.Context;
 
-import com.upiki.bayartol.api.ApiClass.DataResponse;
-import com.upiki.bayartol.api.ApiClass.MessageResponse;
-import com.upiki.bayartol.api.ApiClass.User;
+import com.upiki.gatesimulatorapp.api.ApiClass.DataResponse;
+import com.upiki.gatesimulatorapp.api.ApiClass.MessageResponse;
+import com.upiki.gatesimulatorapp.api.ApiClass.User;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserApi extends Api {
-    
+
     public void postRegisterUser(Context context, String email, String name, String password, String phone_number, String address, ApiListener<DataUser> apiListener) {
         Map<String, String> body = new HashMap<>();
-        body.put("role", "user");
+        body.put("role", "toll");
         body.put("email", email);
         body.put("password", password);
         body.put("name", name);
@@ -37,13 +37,6 @@ public class UserApi extends Api {
         callGetApi(context, String.format(ApiConstanta.GET_PROFILE, uid), null, DataUser.class, apiListener);
     }
 
-    /**
-     * By posting email to get UserID. If the database does not recognize the email, do registration
-     * and login.
-     * @param context
-     * @param email
-     * @param apiListener
-     */
     public void getUserId(Context context, String email, ApiListener<DataUser> apiListener) {
         Map<String, String> body = new HashMap<>();
         body.put("email", email);
@@ -52,6 +45,5 @@ public class UserApi extends Api {
 
     public class DataUser extends DataResponse<User> {}
     public class DataMsgResponse extends DataResponse<MessageResponse> {}
-
 }
 

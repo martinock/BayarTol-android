@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.Adapter.PaymentAdapter;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
@@ -190,8 +191,8 @@ public class HistoryFragment extends Fragment {
                 }
 
                 @Override
-                public void onApiError(String errorMessage) {
-                    mLoading.stopShowError(errorMessage, true);
+                public void onApiError(VolleyError error) {
+                    mLoading.stopShowError(error.getMessage(), true);
                     mLoading.setRefresh(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

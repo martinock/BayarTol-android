@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
@@ -24,6 +25,7 @@ import com.upiki.bayartol.page.profile.ProfileFragment;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.upiki.bayartol.page.profile.ProfileFragment.EMAIL;
 import static com.upiki.bayartol.page.profile.ProfileFragment.PROFILE;
 import static com.upiki.bayartol.page.profile.ProfileFragment.UID;
 
@@ -45,6 +47,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_and_register);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         etEmail = (EditText) findViewById(R.id.login_email_field);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
@@ -106,8 +109,8 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onApiError(String errorMessage) {
-                    Toast.makeText(LoginAndRegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                public void onApiError(VolleyError errorMessage) {
+                    Toast.makeText(LoginAndRegisterActivity.this, errorMessage.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -118,7 +121,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onApiError(String errorMessage) {
+                public void onApiError(VolleyError error) {
                     view.setClickable(true);
                     etEmail.setEnabled(true);
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -127,11 +130,17 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
                         view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
                     }
                     progressBar.setVisibility(View.INVISIBLE);
-                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    registerAndLogin();
+                    if (error.networkResponse != null && error.networkResponse.statusCode == 404) {
+                        registerAndLogin(email);
+                    } else {
+                        Toast.makeText(getApplicationContext(),
+                            "Terjadi kesalahan. Mohon coba beberapa saat lagi",
+                            Toast.LENGTH_LONG).show();
+                    }
                 }
             });
         }
+
     }
 
     private boolean isEmailValid(String email) {
@@ -141,36 +150,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         return matcher.find();
     }
 
-    private void registerAndLogin() {
-//        BayarTolApi.userApi.postRegisterUser(getApplicationContext(),
-//                mEmailField.getText().toString(),
-//                mNameField.getText().toString(),
-//                mPhoneNumberField.getText().toString(),
-//                mAddressField.getText().toString(),
-//                new Api.ApiListener<UserApi.DataUser>() {
-//                    @Override
-//                    public void onApiSuccess(UserApi.DataUser result, String rawJson) {
-//                        SharedPreferences sharedPreferences
-//                                = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
-//                        SharedPreferences.Editor editor = sharedPreferences.edit();
-//                        editor.putString(ProfileFragment.UID, result.uid);
-//                        editor.apply();
-//                        Toast.makeText(getApplicationContext(),
-//                                "Berhasil mengubah profil",
-//                                Toast.LENGTH_SHORT)
-//                                .show();
-//                    }
-//
-//                    @Override
-//                    public void onApiError(String errorMessage) {
-//                        Toast.makeText(
-//                                getApplicationContext(),
-//                                "Gagal melakukan perubahan",
-//                                Toast.LENGTH_SHORT
-//                        ).show();
-//                    }
-//                }
-//        );
+    private void registerAndLogin(String email) {
+        Intent intent = new Intent(getApplicationContext(), InputUserDataActivity.class);
+        intent.putExtra(EMAIL, email);
+        startActivity(intent);
     }
 
     private void login(String uid) {
