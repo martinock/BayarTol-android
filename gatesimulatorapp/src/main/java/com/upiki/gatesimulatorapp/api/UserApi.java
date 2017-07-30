@@ -45,8 +45,8 @@ public class UserApi extends Api {
         callPostApi(context, ApiConstanta.LOGIN, null, body, null, DataUser.class, apiListener);
     }
 
-    public void getTollTransaction(Context context, String tid, String uid, ApiListener<DataMsgResponse> apiListener) {
-
+    public void getTollTransaction(Context context, String uid, String isBusiness, ApiListener<DataMsgResponse> apiListener) {
+        callGetApi(context, String.format(ApiConstanta.TRANSACTION, uid, uid, String.valueOf(isBusiness)), null, DataMsgResponse.class, apiListener);
     }
 
     public class DataToll extends DataResponse<Toll> {}

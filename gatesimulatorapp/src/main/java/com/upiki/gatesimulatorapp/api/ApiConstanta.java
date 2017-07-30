@@ -11,7 +11,7 @@ public class ApiConstanta {
     public static String GET_HISTORY = API + "/history";
     public static String GET_HISTORY_BY_DATE = API
         + "/history?uid=%1s&start_date=%1s&end_date=%1s&current=%1s&limit=%1s";
-    public static String TRANSACTION = API + "/transaction";
+    public static String TRANSACTION = API + "/transaction?uid=%1s&tid=%2s&is_business=%3s";
 
 
 }

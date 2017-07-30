@@ -37,6 +37,14 @@
             android:hint="@string/address"
             android:imeOptions="actionDone"
             android:textSize="@dimen/f_16sp"/>
+
+        <EditText
+            android:id="@+id/profile_toll_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/toll_cost"
+            android:imeOptions="actionDone"
+            android:textSize="@dimen/f_16sp"/>
     </LinearLayout>
     <Button
         android:id="@+id/btn_submit_profile"

@@ -19,6 +19,7 @@ import com.upiki.gatesimulatorapp.api.BayarTolApi;
 import com.upiki.gatesimulatorapp.api.UserApi;
 
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.ADDRESS;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.COST;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PHONE_NUMBER;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PROFILE;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.UID;
@@ -29,6 +30,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText mNameField;
     private EditText mAddressField;
     private EditText mPhoneNumberField;
+    private EditText mCost;
     private Button btnSubmit;
     private ProgressBar progressBar;
     private SharedPreferences sp;
@@ -42,6 +44,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mNameField = (EditText) findViewById(R.id.profile_name_field);
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
+        mCost = (EditText) findViewById(R.id.profile_toll_cost);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
         progressBar = (ProgressBar) findViewById(R.id.edit_profile_progress_bar);
         sp = getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
@@ -58,6 +61,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mNameField.append(sp.getString(USERNAME, ""));
         mPhoneNumberField.append(sp.getString(PHONE_NUMBER, ""));
         mAddressField.append(sp.getString(ADDRESS, ""));
+        mCost.append(sp.getString(COST, ""));
     }
 
     private void submitEditProfile() {
@@ -72,6 +76,10 @@ public class EditProfileActivity extends AppCompatActivity {
             isValid = false;
             mAddressField.setError("Harus diisi");
         }
+        if (TextUtils.isEmpty(mCost.getText().toString())) {
+            isValid = false;
+            mCost.setError("Harus diisi");
+        }
         if (TextUtils.isEmpty(mPhoneNumberField.getText().toString())) {
             isValid = false;
             mPhoneNumberField.setError("Harus diisi");
@@ -85,6 +93,7 @@ public class EditProfileActivity extends AppCompatActivity {
             final String name = mNameField.getText().toString();
             final String phone = mPhoneNumberField.getText().toString();
             final String address = mAddressField.getText().toString();
+            final String cost = mCost.getText().toString();
             BayarTolApi.userApi.postEditProfile(
                     getApplicationContext(), uid, name, phone, address,
                     new Api.ApiListener<UserApi.DataMsgResponse>() {
@@ -117,6 +126,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mNameField.setEnabled(false);
         mPhoneNumberField.setEnabled(false);
         mAddressField.setEnabled(false);
+        mCost.setEnabled(false);
         btnSubmit.setClickable(false);
         progressBar.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -130,6 +140,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mNameField.setEnabled(true);
         mPhoneNumberField.setEnabled(true);
         mAddressField.setEnabled(true);
+        mCost.setEnabled(true);
         btnSubmit.setClickable(true);
         progressBar.setVisibility(View.GONE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

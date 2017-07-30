@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 public class LoginAndRegisterActivity extends AppCompatActivity {
     public static String PROFILE = "gate_profile";
     public static String UID = "gate_uid";
+    public static String TID = "gate_tid";
     public static String USERNAME = "gate_username";
     public static String EMAIL = "gate_email";
     public static String PHONE_NUMBER = "gate_phone_number";
