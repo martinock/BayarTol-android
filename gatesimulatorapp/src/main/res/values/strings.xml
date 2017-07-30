@@ -1,11 +1,30 @@
 <resources>
     <!--Common-->
-    <string name="app_name">BayarTol</string>
+    <string name="app_name">BayarTol Gate App</string>
     <string name="scan_instruction">Scan QR Code pengguna jalan untuk melakukan transaksi</string>
     <string name="quit_application_instruction">Tekan sekali lagi untuk keluar</string>
+    <string name="logout">Keluar</string>
     <string name="dummy_string">Upiki</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+    <string name="cancel">Batal</string>
+
+    <!--Login Register-->
+    <string name="login_or_register">Masuk/Daftar</string>
+    <string name="login_register_success_message">Email Anda telah didaftarkan! Selamat mengemudi!</string>
+    <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar dari akun Anda?</string>
+
+    <!--Profile-->
+    <string name="full_name">Nama Lengkap</string>
+    <string name="email">Email</string>
+    <string name="phone">No Telepon</string>
+    <string name="address">Alamat</string>
+    <string name="save">Simpan</string>
+    <string name="edit_profile">Ubah</string>
 
     <!--Error-->
     <string name="error">Error</string>
     <string name="error_barcode_not_valid">QR Code tidak valid</string>
+    <string name="error_field_required">Form ini harus diisi</string>
+    <string name="error_email_format_invalid">Format email salah</string>
 </resources>
