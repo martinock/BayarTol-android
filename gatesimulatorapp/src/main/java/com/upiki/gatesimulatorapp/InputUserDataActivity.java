@@ -20,6 +20,7 @@ import com.upiki.gatesimulatorapp.api.BayarTolApi;
 import com.upiki.gatesimulatorapp.api.UserApi;
 
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.ADDRESS;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.COST;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.EMAIL;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PHONE_NUMBER;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PROFILE;
@@ -31,6 +32,7 @@ public class InputUserDataActivity extends AppCompatActivity {
     private EditText mNameField;
     private EditText mAddressField;
     private EditText mPhoneNumberField;
+    private EditText mCost;
     private String email;
     private Button btnSubmit;
     private ProgressBar progressBar;
@@ -46,6 +48,7 @@ public class InputUserDataActivity extends AppCompatActivity {
         mNameField = (EditText) findViewById(R.id.profile_name_field);
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
+        mCost = (EditText) findViewById(R.id.profile_toll_cost);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
         progressBar = (ProgressBar) findViewById(R.id.edit_profile_progress_bar);
         sp = getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
@@ -74,6 +77,10 @@ public class InputUserDataActivity extends AppCompatActivity {
             isValid = false;
             mAddressField.setError("Harus diisi");
         }
+        if (TextUtils.isEmpty(mCost.getText().toString())) {
+            isValid = false;
+            mCost.setError("Harus diisi");
+        }
         if (TextUtils.isEmpty(mPhoneNumberField.getText().toString())) {
             isValid = false;
             mPhoneNumberField.setError("Harus diisi");
@@ -86,8 +93,9 @@ public class InputUserDataActivity extends AppCompatActivity {
             final String name = mNameField.getText().toString();
             final String phone = mPhoneNumberField.getText().toString();
             final String address = mAddressField.getText().toString();
+            final String cost = mCost.getText().toString();
             BayarTolApi.userApi.postRegisterUser(
-                    getApplicationContext(), email, name, "dummypass", phone, address,
+                    getApplicationContext(), email, name, "dummypass", phone, address, cost,
                     new Api.ApiListener<UserApi.DataUser>() {
                         @Override
                         public void onApiSuccess(UserApi.DataUser result, String rawJson) {
@@ -95,10 +103,11 @@ public class InputUserDataActivity extends AppCompatActivity {
                                     "Profil berhasil dibuat",
                                     Toast.LENGTH_SHORT).show();
                             sp.edit().putString(UID, result.data.uid).apply();
-                            sp.edit().putString(USERNAME, result.data.name).apply();
-                            sp.edit().putString(EMAIL, result.data.email).apply();
-                            sp.edit().putString(PHONE_NUMBER, result.data.phone_number).apply();
-                            sp.edit().putString(ADDRESS, result.data.address).apply();
+                            sp.edit().putString(USERNAME, name).apply();
+                            sp.edit().putString(EMAIL, email).apply();
+                            sp.edit().putString(PHONE_NUMBER, phone).apply();
+                            sp.edit().putString(COST, cost).apply();
+                            sp.edit().putString(ADDRESS, address).apply();
                             toHomeActivity();
                             finish();
                         }
@@ -106,7 +115,7 @@ public class InputUserDataActivity extends AppCompatActivity {
                         @Override
                         public void onApiError(VolleyError error) {
                             Toast.makeText(getApplicationContext(),
-                                    "Gagal membuat profil",
+                                    "Gagal Membuat Profil",
                                     Toast.LENGTH_SHORT).show();
                             enableView();
                         }
@@ -125,6 +134,7 @@ public class InputUserDataActivity extends AppCompatActivity {
         mNameField.setEnabled(false);
         mPhoneNumberField.setEnabled(false);
         mAddressField.setEnabled(false);
+        mCost.setEnabled(false);
         btnSubmit.setClickable(false);
         progressBar.setVisibility(View.VISIBLE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -138,6 +148,7 @@ public class InputUserDataActivity extends AppCompatActivity {
         mNameField.setEnabled(true);
         mPhoneNumberField.setEnabled(true);
         mAddressField.setEnabled(true);
+        mCost.setEnabled(true);
         btnSubmit.setClickable(true);
         progressBar.setVisibility(View.GONE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

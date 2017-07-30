@@ -1,9 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.upiki.gatesimulatorapp.InputUserDataActivity">
+    android:orientation="vertical"
+    tools:context="com.upiki.gatesimulatorapp.EditProfileActivity">
+    <LinearLayout
+        android:id="@+id/ll_edit_form"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10dp"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+        <EditText
+            android:id="@+id/profile_name_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/full_name"
+            android:textSize="@dimen/f_16sp"
+            android:inputType="textPersonName"/>
+
+        <EditText
+            android:id="@+id/profile_phone_number_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/phone"
+            android:inputType="phone"
+            android:textSize="@dimen/f_16sp"/>
+
+        <EditText
+            android:id="@+id/profile_address_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/address"
+            android:textSize="@dimen/f_16sp"/>
+
+        <EditText
+            android:id="@+id/profile_toll_cost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/toll_cost"
+            android:inputType="number"
+            android:imeOptions="actionDone"
+            android:textSize="@dimen/f_16sp"/>
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_submit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_marginStart="@dimen/_10dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:layout_marginEnd="@dimen/_10dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:text="@string/save"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/white" />
+    <ProgressBar
+        android:id="@+id/edit_profile_progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+</LinearLayout>

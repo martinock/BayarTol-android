@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
             case R.id.profile:
                 Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
                 startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -72,11 +74,16 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void handleResult(Result result) {
         String[] parsedResult = result.toString().split("_");
-        if (parsedResult.length < 4) {
+        if (parsedResult.length != 4) {
             Toast.makeText(getApplicationContext(),
                     "Barcode salah",
                     Toast.LENGTH_SHORT).show();
             return;
+        } else {
+            for (int i = 0; i < parsedResult.length; ++i) {
+                Log.d("SCAN RESULT", parsedResult[i]);
+            }
+            Toast.makeText(getApplicationContext(), result.toString(), Toast.LENGTH_SHORT).show();
         }
         String tid = "";
         String uid = "";

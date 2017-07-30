@@ -22,6 +22,7 @@
     <string name="address">Alamat</string>
     <string name="save">Simpan</string>
     <string name="edit_profile">Ubah</string>
+    <string name="toll_cost">Harga Toll</string>
 
     <!--Error-->
     <string name="error">Error</string>
