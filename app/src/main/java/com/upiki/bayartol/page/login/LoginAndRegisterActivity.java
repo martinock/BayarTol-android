@@ -39,6 +39,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_and_register);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         etEmail = (EditText) findViewById(R.id.login_email_field);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
     }

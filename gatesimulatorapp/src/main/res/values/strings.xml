@@ -13,6 +13,7 @@
     <string name="login_or_register">Masuk/Daftar</string>
     <string name="login_register_success_message">Email Anda telah didaftarkan! Selamat mengemudi!</string>
     <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar dari akun Anda?</string>
+    <string name="register_description">Anda belum terdaftar di basis data kami. Silahkan masukkan kelengkapan data Anda</string>
 
     <!--Profile-->
     <string name="full_name">Nama Lengkap</string>

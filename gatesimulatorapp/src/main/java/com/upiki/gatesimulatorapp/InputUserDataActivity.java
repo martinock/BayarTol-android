@@ -1,4 +1,4 @@
-package com.upiki.bayartol.page.login;
+package com.upiki.gatesimulatorapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,18 +15,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.upiki.bayartol.MainActivity;
-import com.upiki.bayartol.R;
-import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.BayarTolApi;
-import com.upiki.bayartol.api.UserApi;
+import com.upiki.gatesimulatorapp.api.Api;
+import com.upiki.gatesimulatorapp.api.BayarTolApi;
+import com.upiki.gatesimulatorapp.api.UserApi;
 
-import static com.upiki.bayartol.page.profile.ProfileFragment.ADDRESS;
-import static com.upiki.bayartol.page.profile.ProfileFragment.EMAIL;
-import static com.upiki.bayartol.page.profile.ProfileFragment.PHONE_NUMBER;
-import static com.upiki.bayartol.page.profile.ProfileFragment.PROFILE;
-import static com.upiki.bayartol.page.profile.ProfileFragment.UID;
-import static com.upiki.bayartol.page.profile.ProfileFragment.USERNAME;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.ADDRESS;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.EMAIL;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PHONE_NUMBER;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PROFILE;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.UID;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.USERNAME;
 
 public class InputUserDataActivity extends AppCompatActivity {
 

@@ -13,9 +13,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.gatesimulatorapp.api.Api;
-import com.upiki.gatesimulatorapp.api.ApiClass.MessageResponse;
 import com.upiki.gatesimulatorapp.api.BayarTolApi;
+import com.upiki.gatesimulatorapp.api.UserApi;
 
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.ADDRESS;
 import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.EMAIL;
@@ -39,6 +40,7 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         mNameField = (EditText) findViewById(R.id.profile_name_field);
         mEmailField = (EditText) findViewById(R.id.profile_email_field);
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
@@ -94,9 +96,9 @@ public class EditProfileActivity extends AppCompatActivity {
             final String address = mAddressField.getText().toString();
             BayarTolApi.userApi.postEditProfile(
                     getApplicationContext(), uid, email, name, phone, address,
-                    new Api.ApiListener<MessageResponse>() {
+                    new Api.ApiListener<UserApi.DataMsgResponse>() {
                         @Override
-                        public void onApiSuccess(MessageResponse result, String rawJson) {
+                        public void onApiSuccess(UserApi.DataMsgResponse result, String rawJson) {
                             Toast.makeText(getApplicationContext(),
                                     "Profil berhasil diubah",
                                     Toast.LENGTH_SHORT).show();
@@ -109,7 +111,7 @@ public class EditProfileActivity extends AppCompatActivity {
                         }
 
                         @Override
-                        public void onApiError(String errorMessage) {
+                        public void onApiError(VolleyError error) {
                             Toast.makeText(getApplicationContext(),
                                     "Gagal mengubah profil",
                                     Toast.LENGTH_SHORT).show();

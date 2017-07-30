@@ -10,9 +10,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.zxing.Result;
-import com.upiki.gatesimulatorapp.api.Api;
-import com.upiki.gatesimulatorapp.api.ApiClass.MessageResponse;
-import com.upiki.gatesimulatorapp.api.BayarTolApi;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
@@ -76,21 +73,21 @@ public class MainActivity extends AppCompatActivity
     public void handleResult(Result result) {
         String tid = "";
         String uid = "";
-        BayarTolApi.userApi.getTollTransaction(
-                getApplicationContext(), tid, uid, new Api.ApiListener<MessageResponse>() {
-                    @Override
-                    public void onApiSuccess(MessageResponse result, String rawJson) {
-                        Toast.makeText(getApplicationContext(), "Transaksi Berhasil",
-                                Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onApiError(String errorMessage) {
-                        Toast.makeText(getApplicationContext(),
-                                "Transaksi Gagal. Silahkan cek kembali koneksi dan saldo pengguna.",
-                                Toast.LENGTH_SHORT).show();
-                    }
-                });
+//        BayarTolApi.userApi.getTollTransaction(
+//                getApplicationContext(), tid, uid, new Api.ApiListener<MessageResponse>() {
+//                    @Override
+//                    public void onApiSuccess(MessageResponse result, String rawJson) {
+//                        Toast.makeText(getApplicationContext(), "Transaksi Berhasil",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    @Override
+//                    public void onApiError(String errorMessage) {
+//                        Toast.makeText(getApplicationContext(),
+//                                "Transaksi Gagal. Silahkan cek kembali koneksi dan saldo pengguna.",
+//                                Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
         scannerView.resumeCameraPreview(this);
     }

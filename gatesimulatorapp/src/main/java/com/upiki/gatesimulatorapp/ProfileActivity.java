@@ -32,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_action_bar);
 
         mUserName = (TextView) findViewById(R.id.username);
         mUserEmail = (TextView) findViewById(R.id.email);
