@@ -22,7 +22,6 @@ import com.upiki.bayartol.api.UserApi;
 public class EditProfileActivity extends AppCompatActivity {
 
     private EditText mNameField;
-    private EditText mEmailField;
     private EditText mAddressField;
     private EditText mPhoneNumberField;
     private Button btnSubmit;
@@ -36,7 +35,6 @@ public class EditProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
         mNameField = (EditText) findViewById(R.id.profile_name_field);
-        mEmailField = (EditText) findViewById(R.id.profile_email_field);
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
@@ -53,7 +51,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void initEditTextsValue() {
         mNameField.append(sp.getString(ProfileFragment.USERNAME, ""));
-        mEmailField.append(sp.getString(ProfileFragment.EMAIL, ""));
         mPhoneNumberField.append(sp.getString(ProfileFragment.PHONE_NUMBER, ""));
         mAddressField.append(sp.getString(ProfileFragment.ADDRESS, ""));
     }
@@ -65,10 +62,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mNameField.getText().toString())) {
             isValid = false;
             mNameField.setError("Harus diisi");
-        }
-        if (TextUtils.isEmpty(mEmailField.getText().toString())) {
-            isValid = false;
-            mEmailField.setError("Harus diisi");
         }
         if (TextUtils.isEmpty(mAddressField.getText().toString())) {
             isValid = false;
@@ -84,12 +77,11 @@ public class EditProfileActivity extends AppCompatActivity {
 
         if (isValid) {
             final String uid = sp.getString(ProfileFragment.UID, "");
-            final String email = mEmailField.getText().toString();
             final String name = mNameField.getText().toString();
             final String phone = mPhoneNumberField.getText().toString();
             final String address = mAddressField.getText().toString();
             BayarTolApi.userApi.postEditProfile(
-                    getApplicationContext(), uid, email, name, phone, address,
+                    getApplicationContext(), uid, name, phone, address,
                     new Api.ApiListener<UserApi.DataMsgResponse>() {
                         @Override
                         public void onApiSuccess(UserApi.DataMsgResponse result, String rawJson) {
@@ -98,7 +90,6 @@ public class EditProfileActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                             sp.edit().putString(ProfileFragment.UID, uid).apply();
                             sp.edit().putString(ProfileFragment.USERNAME, name).apply();
-                            sp.edit().putString(ProfileFragment.EMAIL, email).apply();
                             sp.edit().putString(ProfileFragment.PHONE_NUMBER, phone).apply();
                             sp.edit().putString(ProfileFragment.ADDRESS, address).apply();
                             finish();
@@ -119,7 +110,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void disableView() {
         mNameField.setEnabled(false);
-        mEmailField.setEnabled(false);
         mPhoneNumberField.setEnabled(false);
         mAddressField.setEnabled(false);
         btnSubmit.setClickable(false);
@@ -133,7 +123,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void enableView() {
         mNameField.setEnabled(true);
-        mEmailField.setEnabled(true);
         mPhoneNumberField.setEnabled(true);
         mAddressField.setEnabled(true);
         btnSubmit.setClickable(true);

@@ -71,6 +71,13 @@ public class MainActivity extends AppCompatActivity
      */
     @Override
     public void handleResult(Result result) {
+        String[] parsedResult = result.toString().split("_");
+        if (parsedResult.length < 4) {
+            Toast.makeText(getApplicationContext(),
+                    "Barcode salah",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
         String tid = "";
         String uid = "";
 //        BayarTolApi.userApi.getTollTransaction(

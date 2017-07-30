@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.Activity.ListMemberActivity;
 import com.upiki.bayartol.Activity.TransactionActivity;
 import com.upiki.bayartol.R;
@@ -102,8 +103,8 @@ public class OrganizationFragment extends Fragment {
             }
 
             @Override
-            public void onApiError(String errorMessage) {
-                mLoading.stopShowError(errorMessage, true);
+            public void onApiError(VolleyError errorMessage) {
+                mLoading.stopShowError(errorMessage.getMessage(), true);
                 mLoading.setRefresh(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

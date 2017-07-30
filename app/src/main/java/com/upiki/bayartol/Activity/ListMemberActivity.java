@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.ApiClass.Organization;
@@ -163,12 +164,12 @@ public class ListMemberActivity extends AppCompatActivity {
                                 }
 
                                 @Override
-                                public void onApiError(String errorMessage) {
-                                    Toast.makeText(ListMemberActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                public void onApiError(VolleyError errorMessage) {
+                                    Toast.makeText(ListMemberActivity.this, errorMessage.getMessage(), Toast.LENGTH_SHORT).show();
                                     addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_add", "drawable", getPackageName()));
                                     addHolder.mFieldContainer.setVisibility(View.GONE);
                                     addHolder.mEmailField.setText("");
-                                    mLoading.stopShowError(errorMessage, true);
+                                    mLoading.stopShowError(errorMessage.getMessage(), true);
                                     mLoading.setRefresh(new View.OnClickListener() {
                                         @Override
                                         public void onClick(View v) {

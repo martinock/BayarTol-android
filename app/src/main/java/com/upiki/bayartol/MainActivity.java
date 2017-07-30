@@ -59,8 +59,13 @@ public class MainActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         sharedPreferences = getSharedPreferences(
                 ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+        findIconView();
+        selectedFragment = 0;
+        HomeFragment homeFragment = new HomeFragment();
         if (!sharedPreferences.contains(ProfileFragment.USERNAME)) {
             getProfile();
+        } else {
+            setFragment(homeFragment);
         }
     }
 
@@ -78,9 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.putString(ProfileFragment.PHONE_NUMBER, result.data.phone_number);
                 editor.putString(ProfileFragment.ADDRESS, result.data.address);
                 editor.apply();
-                findIconView();
-
-                selectedFragment = 0;
                 HomeFragment homeFragment = new HomeFragment();
                 setFragment(homeFragment);
             }

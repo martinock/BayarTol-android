@@ -23,10 +23,9 @@ public class UserApi extends Api {
         callPostApi(context, ApiConstanta.REGISTER, null, body, null, DataUser.class, apiListener);
     }
 
-    public void postEditProfile(Context context, String uid, String email, String name, String phone_number, String address, ApiListener<DataMsgResponse> apiListener) {
+    public void postEditProfile(Context context, String uid, String name, String phone_number, String address, ApiListener<DataMsgResponse> apiListener) {
         Map<String, String> body = new HashMap<>();
         body.put("uid", uid);
-        body.put("email", email);
         body.put("name", name);
         body.put("phone_number", phone_number);
         body.put("address", address);
@@ -47,6 +46,7 @@ public class UserApi extends Api {
     public void getUserId(Context context, String email, ApiListener<DataUser> apiListener) {
         Map<String, String> body = new HashMap<>();
         body.put("email", email);
+        body.put("role", "user");
         callPostApi(context, ApiConstanta.LOGIN, null, body, null, DataUser.class, apiListener);
     }
 

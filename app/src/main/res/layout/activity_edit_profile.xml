@@ -13,6 +13,11 @@
         android:padding="@dimen/_10dp"
         android:background="@color/white"
         android:orientation="vertical">
+        
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/full_name"/>
 
         <EditText
             android:id="@+id/profile_name_field"
@@ -22,13 +27,11 @@
             android:textSize="@dimen/f_16sp"
             android:inputType="textPersonName"/>
 
-        <EditText
-            android:id="@+id/profile_email_field"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textSize="@dimen/f_16sp"/>
+            android:text="@string/phone"
+            android:layout_marginTop="@dimen/_10dp"/>
 
         <EditText
             android:id="@+id/profile_phone_number_field"
@@ -37,6 +40,12 @@
             android:hint="@string/phone"
             android:inputType="phone"
             android:textSize="@dimen/f_16sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/address"
+            android:layout_marginTop="@dimen/_10dp"/>
 
         <EditText
             android:id="@+id/profile_address_field"

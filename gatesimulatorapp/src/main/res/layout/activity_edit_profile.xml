@@ -23,14 +23,6 @@
             android:inputType="textPersonName"/>
 
         <EditText
-            android:id="@+id/profile_email_field"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/email"
-            android:inputType="textEmailAddress"
-            android:textSize="@dimen/f_16sp"/>
-
-        <EditText
             android:id="@+id/profile_phone_number_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
