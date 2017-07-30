@@ -25,6 +25,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
     public static String USERNAME = "gate_username";
     public static String EMAIL = "gate_email";
     public static String PHONE_NUMBER = "gate_phone_number";
+    public static String COST = "gate_cost";
     public static String ADDRESS = "gate_address";
 
     private EditText etEmail;

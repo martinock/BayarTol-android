@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.upiki.gatesimulatorapp.api.ApiClass.DataResponse;
 import com.upiki.gatesimulatorapp.api.ApiClass.MessageResponse;
+import com.upiki.gatesimulatorapp.api.ApiClass.Toll;
 import com.upiki.gatesimulatorapp.api.ApiClass.User;
 
 import java.util.HashMap;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class UserApi extends Api {
 
-    public void postRegisterUser(Context context, String email, String name, String password, String phone_number, String address, ApiListener<DataUser> apiListener) {
+    public void postRegisterUser(Context context, String email, String name, String password, String phone_number, String address, String cost, ApiListener<DataUser> apiListener) {
         Map<String, String> body = new HashMap<>();
         body.put("role", "toll");
         body.put("email", email);
@@ -19,6 +20,7 @@ public class UserApi extends Api {
         body.put("name", name);
         body.put("phone_number", phone_number);
         body.put("address", address);
+        body.put("cost", cost);
 
         callPostApi(context, ApiConstanta.REGISTER, null, body, null, DataUser.class, apiListener);
     }
@@ -47,6 +49,7 @@ public class UserApi extends Api {
 
     }
 
+    public class DataToll extends DataResponse<Toll> {}
     public class DataUser extends DataResponse<User> {}
     public class DataMsgResponse extends DataResponse<MessageResponse> {}
 }

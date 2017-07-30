@@ -97,10 +97,10 @@ public class InputUserDataActivity extends AppCompatActivity {
                                     "Profil berhasil dibuat",
                                     Toast.LENGTH_SHORT).show();
                             sp.edit().putString(UID, result.data.uid).apply();
-                            sp.edit().putString(USERNAME, result.data.name).apply();
-                            sp.edit().putString(EMAIL, result.data.email).apply();
-                            sp.edit().putString(PHONE_NUMBER, result.data.phone_number).apply();
-                            sp.edit().putString(ADDRESS, result.data.address).apply();
+                            sp.edit().putString(USERNAME, name).apply();
+                            sp.edit().putString(EMAIL, email).apply();
+                            sp.edit().putString(PHONE_NUMBER, phone).apply();
+                            sp.edit().putString(ADDRESS, address).apply();
                             toHomeActivity();
                             finish();
                         }
