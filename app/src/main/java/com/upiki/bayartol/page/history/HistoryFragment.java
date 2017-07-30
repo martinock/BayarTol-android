@@ -182,13 +182,12 @@ public class HistoryFragment extends Fragment {
                         recyclerView.removeOnScrollListener(onScrollListener);
                         mAdapter.stopLoadMore();
                     } else {
-                        paymentList.clear();
                         paymentList.addAll(result.data);
                         mAdapter.notifyDataSetChanged();
-                        mLoading.stopProgressBar();
                         current += limit;
                         loading = true;
                     }
+                    mLoading.stopProgressBar();
                 }
 
                 @Override

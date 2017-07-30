@@ -20,6 +20,9 @@
     <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar dari akun Anda?</string>
     <string name="register_description">Anda belum terdaftar di basis data kami. Silahkan masukkan kelengkapan data Anda</string>
 
+    <!--Organization Register-->
+    <string name="no_organization_label">Kamu belum mendaftarkan sebagai organisasi. Apakah anda ingin <b><font color="#B71C1C">mendaftar?</font></b></string>
+
     <!--Home-->
     <string name="home_payment_method">Metode Pembayaran</string>
     <string name="home_payment_method_prompt">Pilih metode pembayaran</string>

@@ -1,6 +1,11 @@
 package com.upiki.bayartol.api.ApiClass;
 
-public class User {
+import java.io.Serializable;
+
+/**
+ * this class can be used for user and member
+ */
+public class User implements Serializable {
     public String uid;
     public String name;
     public String phone_number;
