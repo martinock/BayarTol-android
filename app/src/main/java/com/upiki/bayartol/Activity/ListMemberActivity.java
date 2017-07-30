@@ -15,26 +15,29 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
+import com.upiki.bayartol.api.ApiClass.Organization;
 import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.api.OrganizationApi;
 import com.upiki.bayartol.page.profile.ProfileFragment;
+import com.upiki.bayartol.util.ProgressView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListMemberActivity extends AppCompatActivity {
 
-    RecyclerView mListMember;
-    ProgressBar mLoading;
+    private RecyclerView mListMember;
+    private ProgressView mLoading;
 
-    public List<User> listMembers;
+    private List<User> listMembers;
+    private Organization organization;
+    private MemberAdapter memberAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,24 +46,29 @@ public class ListMemberActivity extends AppCompatActivity {
 
         // initialization view
         mListMember = (RecyclerView) findViewById(R.id.list_member);
-        mLoading = (ProgressBar) findViewById(R.id.loading);
+        mLoading = (ProgressView) findViewById(R.id.loading);
 
         listMembers = new ArrayList<>();
-        User dummyUser = new User();
-        dummyUser.name = "Silveriar";
-        dummyUser.phone_number = "0813131313";
-        listMembers.add(dummyUser);
-        listMembers.add(dummyUser);
 
         // set up recyclerview adapter
-        MemberAdapter memberAdapter = new MemberAdapter(listMembers);
+        memberAdapter = new MemberAdapter(listMembers);
         mListMember.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mListMember.setAdapter(memberAdapter);
 
+        getListMember();
+
+
     }
 
-    public static void startThisActivity(Activity activity) {
-        activity.startActivity(new Intent(activity, ListMemberActivity.class));
+    public void getListMember() {
+        organization = (Organization) getIntent().getSerializableExtra("organization");
+        listMembers.addAll(organization.member);
+        memberAdapter.notifyDataSetChanged();
+    }
+
+    public static void startThisActivity(Activity activity, Organization organization) {
+        activity.startActivity(new Intent(activity, ListMemberActivity.class)
+            .putExtra("organization", organization));
     }
 
     class MemberAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -131,6 +139,7 @@ public class ListMemberActivity extends AppCompatActivity {
                             addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_add", "drawable", getPackageName()));
                             add = true;
                         }
+                        addHolder.mEmailField.setText("");
                     }
                 });
                 if (addHolder.mAddSubmit.getVisibility() == View.VISIBLE) {
@@ -138,6 +147,7 @@ public class ListMemberActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             // post add new member
+                            mLoading.startProgressBar();
                             SharedPreferences sharedPreferences = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
                             String uid = sharedPreferences.getString(ProfileFragment.UID, "");
                             BayarTolApi.organizationApi.postAddMember(getApplicationContext(), uid, addHolder.mEmailField.getText().toString(), new Api.ApiListener<OrganizationApi.DataMember>() {
@@ -146,11 +156,25 @@ public class ListMemberActivity extends AppCompatActivity {
                                     listMember.clear();
                                     listMember.addAll(result.data);
                                     notifyDataSetChanged();
+                                    addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_add", "drawable", getPackageName()));
+                                    addHolder.mFieldContainer.setVisibility(View.GONE);
+                                    addHolder.mEmailField.setText("");
+                                    mLoading.stopProgressBar();
                                 }
 
                                 @Override
                                 public void onApiError(String errorMessage) {
                                     Toast.makeText(ListMemberActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                                    addHolder.mAddButton.setImageResource(getResources().getIdentifier("ic_add", "drawable", getPackageName()));
+                                    addHolder.mFieldContainer.setVisibility(View.GONE);
+                                    addHolder.mEmailField.setText("");
+                                    mLoading.stopShowError(errorMessage, true);
+                                    mLoading.setRefresh(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+
+                                        }
+                                    });
                                 }
                             });
                         }

@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -47,7 +48,13 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         etEmail = (EditText) findViewById(R.id.login_email_field);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        isOrganization = getIntent().getStringExtra(ORGANIZATION) == null ? "" : getIntent().getStringExtra(ORGANIZATION);
+        if (getIntent().getStringExtra(ORGANIZATION) == null) {
+            isOrganization = "";
+        } else {
+            isOrganization = getIntent().getStringExtra(ORGANIZATION);
+            etEmail.setHint("Nama Organisasi");
+            etEmail.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
     }
 
     public void onSubmitClick(final View view) {
@@ -61,7 +68,6 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         etEmail.setError(null);
         final String email = etEmail.getText().toString();
-        etEmail.setHint(isOrganization.equals(ORGANIZATION) ? "Nama Organisasi": "email");
         if (email.isEmpty()) {
             view.setClickable(true);
             etEmail.setEnabled(true);
@@ -74,7 +80,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_field_required));
             return;
         }
-        if (!isEmailValid(email)) {
+        if (!isEmailValid(email) && isOrganization.equals("")) {
             view.setClickable(true);
             etEmail.setEnabled(true);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -95,13 +101,13 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
                 public void onApiSuccess(OrganizationApi.DataOrganization result, String rawJson) {
                     Intent returnIntent = new Intent();
                     returnIntent.putExtra(ORGANIZATION, email);
-                    setResult(RESULT_OK, returnIntent);
+                    setResult(Activity.RESULT_OK, returnIntent);
                     finish();
                 }
 
                 @Override
                 public void onApiError(String errorMessage) {
-
+                    Toast.makeText(LoginAndRegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
@@ -176,10 +182,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-
-    public static void startThisActivityForResult(Activity activity, String organization, int code) {
-        activity.startActivityForResult(new Intent(activity, LoginAndRegisterActivity.class)
-            .putExtra(ORGANIZATION, organization), code);
-    }
+//
+//    public static void startThisActivityForResult(Activity activity, String organization, int code) {
+//        startActivityForResult(new Intent(activity, LoginAndRegisterActivity.class)
+//            .putExtra(ORGANIZATION, organization), code);
+//    }
 
 }

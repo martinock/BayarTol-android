@@ -17,6 +17,7 @@ import com.upiki.bayartol.Activity.ListMemberActivity;
 import com.upiki.bayartol.Activity.TransactionActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
+import com.upiki.bayartol.api.ApiClass.Organization;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.api.OrganizationApi;
 import com.upiki.bayartol.page.login.LoginAndRegisterActivity;
@@ -38,6 +39,8 @@ public class OrganizationFragment extends Fragment {
     private ProgressView mLoading;
     private LinearLayout mOrganizationContainer;
 
+    private Organization organization;
+
     public OrganizationFragment() {
         // Required empty public constructor
     }
@@ -57,14 +60,14 @@ public class OrganizationFragment extends Fragment {
         mLoading = (ProgressView) view.findViewById(R.id.loading);
 
 //        mNoOrganizationLabel.setText("");
-        mNoOrganizationContainer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // go to register page of organization
-                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
-                    OPEN_ORGANIZATION_REGISTRATION);
-            }
-        });
+//        mNoOrganizationContainer.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // go to register page of organization
+//                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
+//                    OPEN_ORGANIZATION_REGISTRATION);
+//            }
+//        });
 
         getOrganizationData();
 
@@ -81,19 +84,18 @@ public class OrganizationFragment extends Fragment {
             @Override
             public void onApiSuccess(OrganizationApi.DataOrganization result, String rawJson) {
                 mLoading.stopProgressBar();
-                if (result.data.name.equals(null)) {
+                if (result.data.error != null) {
                     // dont have any organization
                     mNoOrganizationContainer.setVisibility(View.VISIBLE);
                     mOrganizationContainer.setVisibility(View.GONE);
-
-                    mNoOrganizationContainer.setOnClickListener(gotoRegistration());
+                    mNoOrganizationLabel.setOnClickListener(gotoRegistration());
 
                 } else {
                     // have organization
                     mOrganizationName.setText(result.data.name);
                     mNoOrganizationContainer.setVisibility(View.GONE);
                     mOrganizationContainer.setVisibility(View.VISIBLE);
-
+                    organization = result.data;
                     mMember.setOnClickListener(gotoListMember());
                     mTransaction.setOnClickListener(gotoListTransaction());
                 }
@@ -117,7 +119,7 @@ public class OrganizationFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListMemberActivity.startThisActivity(getActivity());
+                ListMemberActivity.startThisActivity(getActivity(), organization);
             }
         };
     }
@@ -136,7 +138,10 @@ public class OrganizationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // go to register page of organization
-                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
+//                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
+//                    OPEN_ORGANIZATION_REGISTRATION);
+                startActivityForResult(new Intent(getActivity(), LoginAndRegisterActivity.class)
+                    .putExtra(LoginAndRegisterActivity.ORGANIZATION, LoginAndRegisterActivity.ORGANIZATION),
                     OPEN_ORGANIZATION_REGISTRATION);
             }
         };
@@ -146,9 +151,10 @@ public class OrganizationFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == OPEN_ORGANIZATION_REGISTRATION) {
+                getOrganizationData();
                 mNoOrganizationContainer.setVisibility(View.GONE);
                 mOrganizationContainer.setVisibility(View.VISIBLE);
-                mOrganizationName.setText(data.getStringExtra(LoginAndRegisterActivity.ORGANIZATION));
+//                mOrganizationName.setText(data.getStringExtra(LoginAndRegisterActivity.ORGANIZATION));
             }
         }
 
