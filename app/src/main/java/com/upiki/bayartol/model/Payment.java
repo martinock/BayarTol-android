@@ -12,7 +12,7 @@ public class Payment {
     private Long cost;
     private String datetime;
     private String tid;
-    private boolean isBusinessTrip;
+    private boolean is_business;
 
     /**
      * Default constructor to create payment object.
@@ -29,7 +29,7 @@ public class Payment {
         this.toll_name = paymentLocation;
         this.cost = paymentCost;
         this.datetime = paymentDate;
-        this.isBusinessTrip = isBusinessTrip;
+        this.is_business = isBusinessTrip;
     }
 
     /**
@@ -60,8 +60,8 @@ public class Payment {
      * A method to get the business trip mark.
      * @return business trip mark
      */
-    public boolean isBusinessTrip() {
-        return isBusinessTrip;
+    public boolean isIs_business() {
+        return is_business;
     }
 
     public String getTid() {
@@ -100,8 +100,8 @@ public class Payment {
      * gotten from API.
      * @param isBusinessTrip business trip mark
      */
-    public void setBusinessTrip(boolean isBusinessTrip) {
-        this.isBusinessTrip = isBusinessTrip;
+    public void setIs_business(boolean isBusinessTrip) {
+        this.is_business = isBusinessTrip;
     }
 
     public void setTid(String tid) {

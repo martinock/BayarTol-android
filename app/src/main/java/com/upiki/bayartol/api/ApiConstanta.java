@@ -7,7 +7,7 @@ public class ApiConstanta {
     public static String REGISTER = API_URL + "/register";
     public static String LOGIN = API_URL + "/login";
     public static String EDIT = API_URL + "/edit";
-    public static String GET_PROFILE = API_URL + "/profile?uid=%1s";
+    public static String GET_PROFILE = API_URL + "/profile?uid=%1s&role=user";
     public static String GET_HISTORY = API_URL + "/history";
     public static String GET_HISTORY_BY_DATE = API_URL
         + "/history?uid=%1s&start_date=%1s&end_date=%1s&current=%1s&limit=%1s";

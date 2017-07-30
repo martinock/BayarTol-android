@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white"
-        android:padding="@dimen/_10dp">
+        android:padding="@dimen/_10dp"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,12 +37,28 @@
 
     </LinearLayout>
 
+    <com.upiki.bayartol.util.ProgressView
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/no_history"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tidak terdapat History"
+        android:layout_gravity="center"
+        android:textSize="@dimen/f_20sp"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_transaction"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-        tools:listitem="@layout/row_transaction">
+        tools:listitem="@layout/item_payment_history"
+        android:padding="@dimen/_10dp">
 
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>

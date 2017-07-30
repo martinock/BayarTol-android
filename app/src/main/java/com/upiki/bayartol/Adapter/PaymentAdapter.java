@@ -101,7 +101,7 @@ public class PaymentAdapter extends
                 paymentViewHolder.tvPaymentCost.setText(formatedCost);
                 paymentViewHolder.tvPaymentDate.setText(payment.getDatetime());
                 paymentViewHolder.tvBusinessTrip.setVisibility(
-                    payment.isBusinessTrip()
+                    payment.isIs_business()
                         ? View.VISIBLE
                         : View.GONE);
             }

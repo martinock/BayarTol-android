@@ -5,7 +5,9 @@ import android.content.Context;
 import com.upiki.bayartol.api.ApiClass.DataResponse;
 import com.upiki.bayartol.model.Payment;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TransactionApi extends Api {
 
@@ -29,10 +31,13 @@ public class TransactionApi extends Api {
     /**
      * to get organization's transaction
      * @param context
+     * @param uid
      * @param apiListener
      */
-    public void getTransaction(Context context, ApiListener apiListener) {
-
+    public void getTransaction(Context context, String uid, ApiListener<DataTransaction> apiListener) {
+        Map<String, String> params = new HashMap<>();
+        params.put("uid", uid);
+        callPostApi(context, ApiConstanta.TRANSACTION, params, null, null, DataTransaction.class, apiListener);
     }
     public class DataTransaction extends DataResponse<List<Payment>> {}
 
