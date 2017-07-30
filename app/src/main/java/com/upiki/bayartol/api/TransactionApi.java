@@ -35,9 +35,9 @@ public class TransactionApi extends Api {
      * @param apiListener
      */
     public void getTransaction(Context context, String uid, ApiListener<DataTransaction> apiListener) {
-        Map<String, String> params = new HashMap<>();
-        params.put("uid", uid);
-        callPostApi(context, ApiConstanta.TRANSACTION, params, null, null, DataTransaction.class, apiListener);
+        Map<String, String> body = new HashMap<>();
+        body.put("uid", uid);
+        callPostApi(context, ApiConstanta.TRANSACTION, null, body, null, DataTransaction.class, apiListener);
     }
     public class DataTransaction extends DataResponse<List<Payment>> {}
 
