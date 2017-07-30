@@ -28,7 +28,8 @@
         <activity android:name=".Activity.TransactionActivity" />
         <activity android:name=".Activity.ListMemberActivity" />
         <activity android:name=".page.login.LoginAndRegisterActivity" />
-        <activity android:name=".page.profile.EditProfileActivity"></activity>
+        <activity android:name=".page.profile.EditProfileActivity" />
+        <activity android:name=".page.login.InputUserDataActivity"></activity>
     </application>
 
 </manifest>

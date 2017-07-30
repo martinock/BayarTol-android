@@ -18,6 +18,7 @@
     <string name="login_or_register">Masuk/Daftar</string>
     <string name="login_register_success_message">Email Anda telah didaftarkan! Selamat mengemudi!</string>
     <string name="logout_confirmation_message">Apakah Anda yakin ingin keluar dari akun Anda?</string>
+    <string name="register_description">Anda belum terdaftar di basis data kami. Silahkan masukkan kelengkapan data Anda</string>
 
     <!--Home-->
     <string name="home_payment_method">Metode Pembayaran</string>
@@ -71,4 +72,5 @@
     <!--Error-->
     <string name="error_field_required">Form ini harus diisi</string>
     <string name="error_email_format_invalid">Format email salah</string>
+    <string name="title_activity_input_user_data">InputUserDataActivity</string>
 </resources>

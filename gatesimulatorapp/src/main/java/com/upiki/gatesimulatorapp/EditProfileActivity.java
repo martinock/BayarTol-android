@@ -1,4 +1,4 @@
-package com.upiki.bayartol.page.profile;
+package com.upiki.gatesimulatorapp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,10 +14,16 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.upiki.bayartol.R;
-import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.BayarTolApi;
-import com.upiki.bayartol.api.UserApi;
+import com.upiki.gatesimulatorapp.api.Api;
+import com.upiki.gatesimulatorapp.api.BayarTolApi;
+import com.upiki.gatesimulatorapp.api.UserApi;
+
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.ADDRESS;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.EMAIL;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PHONE_NUMBER;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.PROFILE;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.UID;
+import static com.upiki.gatesimulatorapp.LoginAndRegisterActivity.USERNAME;
 
 public class EditProfileActivity extends AppCompatActivity {
 
@@ -41,7 +47,7 @@ public class EditProfileActivity extends AppCompatActivity {
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
         progressBar = (ProgressBar) findViewById(R.id.edit_profile_progress_bar);
-        sp = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+        sp = getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
         initEditTextsValue();
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,10 +58,10 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void initEditTextsValue() {
-        mNameField.append(sp.getString(ProfileFragment.USERNAME, ""));
-        mEmailField.append(sp.getString(ProfileFragment.EMAIL, ""));
-        mPhoneNumberField.append(sp.getString(ProfileFragment.PHONE_NUMBER, ""));
-        mAddressField.append(sp.getString(ProfileFragment.ADDRESS, ""));
+        mNameField.append(sp.getString(USERNAME, ""));
+        mEmailField.append(sp.getString(EMAIL, ""));
+        mPhoneNumberField.append(sp.getString(PHONE_NUMBER, ""));
+        mAddressField.append(sp.getString(ADDRESS, ""));
     }
 
     private void submitEditProfile() {
@@ -83,7 +89,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            final String uid = sp.getString(ProfileFragment.UID, "");
+            final String uid = sp.getString(UID, "");
             final String email = mEmailField.getText().toString();
             final String name = mNameField.getText().toString();
             final String phone = mPhoneNumberField.getText().toString();
@@ -96,11 +102,11 @@ public class EditProfileActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(),
                                     "Profil berhasil diubah",
                                     Toast.LENGTH_SHORT).show();
-                            sp.edit().putString(ProfileFragment.UID, uid).apply();
-                            sp.edit().putString(ProfileFragment.USERNAME, name).apply();
-                            sp.edit().putString(ProfileFragment.EMAIL, email).apply();
-                            sp.edit().putString(ProfileFragment.PHONE_NUMBER, phone).apply();
-                            sp.edit().putString(ProfileFragment.ADDRESS, address).apply();
+                            sp.edit().putString(UID, uid).apply();
+                            sp.edit().putString(USERNAME, name).apply();
+                            sp.edit().putString(EMAIL, email).apply();
+                            sp.edit().putString(PHONE_NUMBER, phone).apply();
+                            sp.edit().putString(ADDRESS, address).apply();
                             finish();
                         }
 

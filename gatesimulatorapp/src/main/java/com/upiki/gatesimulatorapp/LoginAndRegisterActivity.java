@@ -1,4 +1,4 @@
-package com.upiki.bayartol.page.login;
+package com.upiki.gatesimulatorapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,25 +12,20 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
-import com.upiki.bayartol.MainActivity;
-import com.upiki.bayartol.R;
-import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.BayarTolApi;
-import com.upiki.bayartol.api.UserApi;
+import com.upiki.gatesimulatorapp.api.Api;
+import com.upiki.gatesimulatorapp.api.BayarTolApi;
+import com.upiki.gatesimulatorapp.api.UserApi;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.upiki.bayartol.page.profile.ProfileFragment.EMAIL;
-import static com.upiki.bayartol.page.profile.ProfileFragment.PROFILE;
-import static com.upiki.bayartol.page.profile.ProfileFragment.UID;
-
-/**
- * Login and Register activity.
- * @author Martino Christanto Khuangga <martino.aksel.11@gmail.com>
- * @since 2017.07.24
- */
 public class LoginAndRegisterActivity extends AppCompatActivity {
+    public static String PROFILE = "gate_profile";
+    public static String UID = "gate_uid";
+    public static String USERNAME = "gate_username";
+    public static String EMAIL = "gate_email";
+    public static String PHONE_NUMBER = "gate_phone_number";
+    public static String ADDRESS = "gate_address";
 
     private EditText etEmail;
     private ProgressBar progressBar;
@@ -99,7 +94,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
                     registerAndLogin(email);
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "Terjadi kesalahan. Mohon coba beberapa saat lagi",
+                            "Terjadi kesalahan. Silahkan coba beberapa saat lagi.",
                             Toast.LENGTH_LONG).show();
                 }
             }

@@ -1,6 +1,7 @@
-package com.upiki.bayartol.page.profile;
+package com.upiki.bayartol.page.login;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,17 +15,25 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
 import com.upiki.bayartol.api.UserApi;
 
-public class EditProfileActivity extends AppCompatActivity {
+import static com.upiki.bayartol.page.profile.ProfileFragment.ADDRESS;
+import static com.upiki.bayartol.page.profile.ProfileFragment.EMAIL;
+import static com.upiki.bayartol.page.profile.ProfileFragment.PHONE_NUMBER;
+import static com.upiki.bayartol.page.profile.ProfileFragment.PROFILE;
+import static com.upiki.bayartol.page.profile.ProfileFragment.UID;
+import static com.upiki.bayartol.page.profile.ProfileFragment.USERNAME;
+
+public class InputUserDataActivity extends AppCompatActivity {
 
     private EditText mNameField;
-    private EditText mEmailField;
     private EditText mAddressField;
     private EditText mPhoneNumberField;
+    private String email;
     private Button btnSubmit;
     private ProgressBar progressBar;
     private SharedPreferences sp;
@@ -32,30 +41,27 @@ public class EditProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_profile);
+        setContentView(R.layout.activity_input_user_data);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_action_bar);
+
         mNameField = (EditText) findViewById(R.id.profile_name_field);
-        mEmailField = (EditText) findViewById(R.id.profile_email_field);
         mAddressField = (EditText) findViewById(R.id.profile_address_field);
         mPhoneNumberField = (EditText) findViewById(R.id.profile_phone_number_field);
         btnSubmit = (Button) findViewById(R.id.btn_submit_profile);
         progressBar = (ProgressBar) findViewById(R.id.edit_profile_progress_bar);
-        sp = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
-        initEditTextsValue();
+        sp = getSharedPreferences(PROFILE, Context.MODE_PRIVATE);
+        email = getIntent().getStringExtra(EMAIL);
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitEditProfile();
             }
         });
-    }
 
-    private void initEditTextsValue() {
-        mNameField.append(sp.getString(ProfileFragment.USERNAME, ""));
-        mEmailField.append(sp.getString(ProfileFragment.EMAIL, ""));
-        mPhoneNumberField.append(sp.getString(ProfileFragment.PHONE_NUMBER, ""));
-        mAddressField.append(sp.getString(ProfileFragment.ADDRESS, ""));
+        Toast.makeText(getApplicationContext(),
+                getString(R.string.register_description), Toast.LENGTH_LONG).show();
     }
 
     private void submitEditProfile() {
@@ -65,10 +71,6 @@ public class EditProfileActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mNameField.getText().toString())) {
             isValid = false;
             mNameField.setError("Harus diisi");
-        }
-        if (TextUtils.isEmpty(mEmailField.getText().toString())) {
-            isValid = false;
-            mEmailField.setError("Harus diisi");
         }
         if (TextUtils.isEmpty(mAddressField.getText().toString())) {
             isValid = false;
@@ -83,31 +85,30 @@ public class EditProfileActivity extends AppCompatActivity {
         }
 
         if (isValid) {
-            final String uid = sp.getString(ProfileFragment.UID, "");
-            final String email = mEmailField.getText().toString();
             final String name = mNameField.getText().toString();
             final String phone = mPhoneNumberField.getText().toString();
             final String address = mAddressField.getText().toString();
-            BayarTolApi.userApi.postEditProfile(
-                    getApplicationContext(), uid, email, name, phone, address,
-                    new Api.ApiListener<UserApi.DataMsgResponse>() {
+            BayarTolApi.userApi.postRegisterUser(
+                    getApplicationContext(), email, name, "dummypass", phone, address,
+                    new Api.ApiListener<UserApi.DataUser>() {
                         @Override
-                        public void onApiSuccess(UserApi.DataMsgResponse result, String rawJson) {
+                        public void onApiSuccess(UserApi.DataUser result, String rawJson) {
                             Toast.makeText(getApplicationContext(),
-                                    "Profil berhasil diubah",
+                                    "Profil berhasil dibuat",
                                     Toast.LENGTH_SHORT).show();
-                            sp.edit().putString(ProfileFragment.UID, uid).apply();
-                            sp.edit().putString(ProfileFragment.USERNAME, name).apply();
-                            sp.edit().putString(ProfileFragment.EMAIL, email).apply();
-                            sp.edit().putString(ProfileFragment.PHONE_NUMBER, phone).apply();
-                            sp.edit().putString(ProfileFragment.ADDRESS, address).apply();
+                            sp.edit().putString(UID, result.data.uid).apply();
+                            sp.edit().putString(USERNAME, result.data.name).apply();
+                            sp.edit().putString(EMAIL, result.data.email).apply();
+                            sp.edit().putString(PHONE_NUMBER, result.data.phone_number).apply();
+                            sp.edit().putString(ADDRESS, result.data.address).apply();
+                            toHomeActivity();
                             finish();
                         }
 
                         @Override
                         public void onApiError(VolleyError error) {
                             Toast.makeText(getApplicationContext(),
-                                    "Gagal mengubah profil",
+                                    "Gagal membuat profil",
                                     Toast.LENGTH_SHORT).show();
                             enableView();
                         }
@@ -117,9 +118,13 @@ public class EditProfileActivity extends AppCompatActivity {
         }
     }
 
+    private void toHomeActivity() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
     private void disableView() {
         mNameField.setEnabled(false);
-        mEmailField.setEnabled(false);
         mPhoneNumberField.setEnabled(false);
         mAddressField.setEnabled(false);
         btnSubmit.setClickable(false);
@@ -133,7 +138,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
     private void enableView() {
         mNameField.setEnabled(true);
-        mEmailField.setEnabled(true);
         mPhoneNumberField.setEnabled(true);
         mAddressField.setEnabled(true);
         btnSubmit.setClickable(true);

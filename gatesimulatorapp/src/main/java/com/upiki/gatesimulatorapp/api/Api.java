@@ -1,4 +1,4 @@
-package com.upiki.bayartol.api;
+package com.upiki.gatesimulatorapp.api;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,8 +11,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
-import com.upiki.bayartol.api.ApiClass.DataResponse;
-import com.upiki.bayartol.util.VolleySingleton;
+import com.upiki.gatesimulatorapp.api.ApiClass.DataResponse;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,7 +30,7 @@ public class Api<T> {
     public interface ApiListener<T> {
         public void onApiSuccess(T result, String rawJson);
 
-        public void onApiError(VolleyError errorMessage);
+        public void onApiError(VolleyError error);
     }
 
     public static Gson gson = new Gson();
