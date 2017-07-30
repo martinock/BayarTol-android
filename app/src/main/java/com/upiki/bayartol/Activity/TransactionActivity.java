@@ -135,7 +135,7 @@ public class TransactionActivity extends AppCompatActivity {
         BayarTolApi.transactionApi.getTransaction(activity, uid, new Api.ApiListener<TransactionApi.DataTransaction>() {
             @Override
             public void onApiSuccess(TransactionApi.DataTransaction result, String rawJson) {
-                mNoHistoryText.setVisibility(layoutManager.getItemCount() == 0?View.VISIBLE : View.GONE);
+                mNoHistoryText.setVisibility(listTransaction.size() == 0?View.VISIBLE : View.GONE);
                 if (!result.data.isEmpty()) {
                     listTransaction.addAll(result.data);
                     mAdapter.notifyDataSetChanged();
