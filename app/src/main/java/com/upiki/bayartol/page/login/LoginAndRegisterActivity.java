@@ -14,8 +14,8 @@ import android.widget.Toast;
 import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.UserApi;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -76,10 +76,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_email_format_invalid));
             return;
         }
-        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<User>() {
+        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<UserApi.DataUser>() {
             @Override
-            public void onApiSuccess(User result, String rawJson) {
-                login(result.uid);
+            public void onApiSuccess(UserApi.DataUser result, String rawJson) {
+                login(result.data.uid);
             }
 
             @Override

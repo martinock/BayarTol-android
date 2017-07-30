@@ -2,21 +2,21 @@ package com.upiki.bayartol;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.upiki.bayartol.api.Api;
-import com.upiki.bayartol.api.ApiClass.User;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.UserApi;
 import com.upiki.bayartol.page.history.HistoryFragment;
 import com.upiki.bayartol.page.home.HomeFragment;
 import com.upiki.bayartol.page.organization.OrganizationFragment;
@@ -70,16 +70,16 @@ public class MainActivity extends AppCompatActivity {
     private void getProfile() {
         String uid = sharedPreferences.getString(ProfileFragment.UID, "");
         BayarTolApi.userApi.getUserProfile(getApplicationContext(),
-                uid, new Api.ApiListener<User>() {
+                uid, new Api.ApiListener<UserApi.DataUser>() {
             @Override
-            public void onApiSuccess(User result, String rawJson) {
+            public void onApiSuccess(UserApi.DataUser result, String rawJson) {
                 sharedPreferences = getSharedPreferences(
                         ProfileFragment.PROFILE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(ProfileFragment.USERNAME, result.name);
-                editor.putString(ProfileFragment.EMAIL, result.email);
-                editor.putString(ProfileFragment.PHONE_NUMBER, result.phone_number);
-                editor.putString(ProfileFragment.ADDRESS, result.address);
+                editor.putString(ProfileFragment.USERNAME, result.data.name);
+                editor.putString(ProfileFragment.EMAIL, result.data.email);
+                editor.putString(ProfileFragment.PHONE_NUMBER, result.data.phone_number);
+                editor.putString(ProfileFragment.ADDRESS, result.data.address);
                 editor.apply();
             }
 
