@@ -72,7 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void showConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         builder.setMessage(R.string.logout_confirmation_message)
                 .setTitle(R.string.app_name);
