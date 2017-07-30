@@ -22,14 +22,19 @@ public class OrganizationApi extends Api {
         body.put("email", email);
 
         callPostApi(context, ApiConstanta.ADD_MEMBER_URL, null, body, null, DataMember.class, apiListener);
-
     }
 
     public void getOrganizationData(Context context, String uid, ApiListener<DataOrganization> apiListener) {
         callGetApi(context, String.format(ApiConstanta.GET_ORGANIZATION_URL, uid), null, DataOrganization.class, apiListener );
     }
 
-//    public void postRegisterOrganization(Context context, String , ApiListener<>)
+    public void postRegisterOrganization(Context context, String uid, String name, ApiListener<DataOrganization> apiListener) {
+        Map<String, String> body = new HashMap<>();
+        body.put("uid", uid);
+        body.put("name", name);
+        callPostApi(context, ApiConstanta.POST_REGISTER_ORGANIZATION, null, body, null, DataOrganization.class, apiListener);
+
+    }
     public class DataMember extends DataResponse<List<User>> {}
     public class DataOrganization extends DataResponse<Organization> {}
 }

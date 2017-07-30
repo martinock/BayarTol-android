@@ -1,5 +1,6 @@
 package com.upiki.bayartol.page.login;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -15,7 +16,9 @@ import com.upiki.bayartol.MainActivity;
 import com.upiki.bayartol.R;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
+import com.upiki.bayartol.api.OrganizationApi;
 import com.upiki.bayartol.api.UserApi;
+import com.upiki.bayartol.page.profile.ProfileFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,8 +33,12 @@ import static com.upiki.bayartol.page.profile.ProfileFragment.UID;
  */
 public class LoginAndRegisterActivity extends AppCompatActivity {
 
+    public static final String ORGANIZATION = "organization";
+
     private EditText etEmail;
     private ProgressBar progressBar;
+
+    private String isOrganization = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,8 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login_and_register);
         etEmail = (EditText) findViewById(R.id.login_email_field);
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
+
+        isOrganization = getIntent().getStringExtra(ORGANIZATION) == null ? "" : getIntent().getStringExtra(ORGANIZATION);
     }
 
     public void onSubmitClick(final View view) {
@@ -52,6 +61,7 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         etEmail.setError(null);
         final String email = etEmail.getText().toString();
+        etEmail.setHint(isOrganization.equals(ORGANIZATION) ? "Nama Organisasi": "email");
         if (email.isEmpty()) {
             view.setClickable(true);
             etEmail.setEnabled(true);
@@ -76,26 +86,46 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
             etEmail.setError(getString(R.string.error_email_format_invalid));
             return;
         }
-        BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<UserApi.DataUser>() {
-            @Override
-            public void onApiSuccess(UserApi.DataUser result, String rawJson) {
-                login(result.data.uid);
-            }
+        if (isOrganization.equals(ORGANIZATION)) {
+            SharedPreferences sharedPreferences = getSharedPreferences(ProfileFragment.PROFILE, Context.MODE_PRIVATE);
+            String uid = sharedPreferences.getString(ProfileFragment.UID, "");
 
-            @Override
-            public void onApiError(String errorMessage) {
-                view.setClickable(true);
-                etEmail.setEnabled(true);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    view.setBackgroundColor(getColor(R.color.colorPrimary));
-                } else {
-                    view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            BayarTolApi.organizationApi.postRegisterOrganization(getApplicationContext(), uid, email, new Api.ApiListener<OrganizationApi.DataOrganization>() {
+                @Override
+                public void onApiSuccess(OrganizationApi.DataOrganization result, String rawJson) {
+                    Intent returnIntent = new Intent();
+                    returnIntent.putExtra(ORGANIZATION, email);
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
                 }
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                registerAndLogin();
-            }
-        });
+
+                @Override
+                public void onApiError(String errorMessage) {
+
+                }
+            });
+        } else {
+            BayarTolApi.userApi.getUserId(getApplicationContext(), email, new Api.ApiListener<UserApi.DataUser>() {
+                @Override
+                public void onApiSuccess(UserApi.DataUser result, String rawJson) {
+                    login(result.data.uid);
+                }
+
+                @Override
+                public void onApiError(String errorMessage) {
+                    view.setClickable(true);
+                    etEmail.setEnabled(true);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        view.setBackgroundColor(getColor(R.color.colorPrimary));
+                    } else {
+                        view.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+                    }
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    registerAndLogin();
+                }
+            });
+        }
     }
 
     private boolean isEmailValid(String email) {
@@ -146,4 +176,10 @@ public class LoginAndRegisterActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public static void startThisActivityForResult(Activity activity, String organization, int code) {
+        activity.startActivityForResult(new Intent(activity, LoginAndRegisterActivity.class)
+            .putExtra(ORGANIZATION, organization), code);
+    }
+
 }

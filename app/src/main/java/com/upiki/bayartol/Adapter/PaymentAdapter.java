@@ -80,7 +80,7 @@ public class PaymentAdapter extends
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        if (viewType == SEE_MORE) {
+        if (viewType == PAYMENT) {
             return new PaymentViewHolder(inflater.inflate(R.layout.item_payment_history, parent, false));
         } else if (viewType == SEE_MORE) {
             return new LoadingViewHolder(inflater.inflate(R.layout.row_loading, parent, false));
@@ -93,23 +93,25 @@ public class PaymentAdapter extends
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof PaymentViewHolder) {
             PaymentViewHolder paymentViewHolder = (PaymentViewHolder) holder;
-            Payment payment = paymentList.get(position);
-            paymentViewHolder.tvPaymentLocation.setText(payment.getToll_name());
-            String formatedCost = BayarTolUtil.currencyFormatter(
-                payment.getCost());
-            paymentViewHolder.tvPaymentCost.setText(formatedCost);
-            paymentViewHolder.tvPaymentDate.setText(payment.getDatetime());
-            paymentViewHolder.tvBusinessTrip.setVisibility(
-                payment.isBusinessTrip()
-                    ? View.VISIBLE
-                    : View.GONE);
+            if (paymentList.size() > 0) {
+                Payment payment = paymentList.get(position);
+                paymentViewHolder.tvPaymentLocation.setText(payment.getToll_name());
+                String formatedCost = BayarTolUtil.currencyFormatter(
+                    payment.getCost());
+                paymentViewHolder.tvPaymentCost.setText(formatedCost);
+                paymentViewHolder.tvPaymentDate.setText(payment.getDatetime());
+                paymentViewHolder.tvBusinessTrip.setVisibility(
+                    payment.isBusinessTrip()
+                        ? View.VISIBLE
+                        : View.GONE);
+            }
         }
     }
 
     @Override
     public int getItemCount() {
         return paymentList != null?
-            paymentList.size() + (stop? 1 : 0) :
+            paymentList.size() + (stop? 0 : 1) :
             0;
     }
 }

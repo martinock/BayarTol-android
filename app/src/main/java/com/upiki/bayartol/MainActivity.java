@@ -1,6 +1,7 @@
 package com.upiki.bayartol;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -286,5 +287,10 @@ public class MainActivity extends AppCompatActivity {
                 isBackPressed = false;
             }
         }, 2000);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
