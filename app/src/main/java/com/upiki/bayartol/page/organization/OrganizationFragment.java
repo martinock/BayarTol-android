@@ -60,18 +60,7 @@ public class OrganizationFragment extends Fragment {
         mOrganizationName = (TextView) view.findViewById(R.id.organization_name);
         mLoading = (ProgressView) view.findViewById(R.id.loading);
 
-//        mNoOrganizationLabel.setText("");
-//        mNoOrganizationContainer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // go to register page of organization
-//                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
-//                    OPEN_ORGANIZATION_REGISTRATION);
-//            }
-//        });
-
         getOrganizationData();
-
 
         return view;
     }
@@ -139,8 +128,6 @@ public class OrganizationFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // go to register page of organization
-//                LoginAndRegisterActivity.startThisActivityForResult(getActivity(), LoginAndRegisterActivity.ORGANIZATION,
-//                    OPEN_ORGANIZATION_REGISTRATION);
                 startActivityForResult(new Intent(getActivity(), LoginAndRegisterActivity.class)
                     .putExtra(LoginAndRegisterActivity.ORGANIZATION, LoginAndRegisterActivity.ORGANIZATION),
                     OPEN_ORGANIZATION_REGISTRATION);
@@ -155,7 +142,6 @@ public class OrganizationFragment extends Fragment {
                 getOrganizationData();
                 mNoOrganizationContainer.setVisibility(View.GONE);
                 mOrganizationContainer.setVisibility(View.VISIBLE);
-//                mOrganizationName.setText(data.getStringExtra(LoginAndRegisterActivity.ORGANIZATION));
             }
         }
 
