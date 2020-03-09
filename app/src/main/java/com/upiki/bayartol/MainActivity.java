@@ -1,5 +1,4 @@
 package com.upiki.bayartol;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.android.volley.VolleyError;
 import com.upiki.bayartol.api.Api;
 import com.upiki.bayartol.api.BayarTolApi;
@@ -29,7 +27,8 @@ import com.upiki.bayartol.page.profile.ProfileFragment;
  * @author Martino Christanto Khuangga <martino.aksel.11@gmail.com>
  * @since 2017.06.30
  */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity 
+{
 
     private ImageView ivHomeIcon;
     private ImageView ivHistoryIcon;
@@ -64,12 +63,14 @@ public class MainActivity extends AppCompatActivity {
         HomeFragment homeFragment = new HomeFragment();
         if (!sharedPreferences.contains(ProfileFragment.USERNAME)) {
             getProfile();
-        } else {
+        } else 
+           {
             setFragment(homeFragment);
-        }
+           }
     }
 
-    private void getProfile() {
+    private void getProfile() 
+    {
         String uid = sharedPreferences.getString(ProfileFragment.UID, "");
         BayarTolApi.userApi.getUserProfile(getApplicationContext(),
                 uid, new Api.ApiListener<UserApi.DataUser>() {
@@ -85,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
                 HomeFragment homeFragment = new HomeFragment();
                 setFragment(homeFragment);
-            }
+     }
 
             @Override
             public void onApiError(VolleyError error) {
@@ -94,7 +95,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void findIconView() {
+    private void findIconView() 
+    {
         ivHomeIcon =
                 (ImageView) findViewById(R.id.iv_home_icon);
         tvHomeIcon = (TextView) findViewById(R.id.tv_home_icon);
@@ -113,7 +115,8 @@ public class MainActivity extends AppCompatActivity {
         tvProfileIcon = (TextView) findViewById(R.id.tv_profile_icon);
     }
 
-    private void clearSelectedItem() {
+    private void clearSelectedItem() 
+    {
         ivHomeIcon.setImageResource(
                 R.drawable.ic_home);
         tvHomeIcon.setTextColor(
@@ -135,8 +138,7 @@ public class MainActivity extends AppCompatActivity {
         ivProfileIcon.setImageResource(
                 R.drawable.ic_profile);
         tvProfileIcon.setTextColor(
-                ContextCompat.getColor(
-                        getApplicationContext(),
+                ContextCompat.getColor(getApplicationContext(),
                         R.color.default_grey));
     }
 
